@@ -46,15 +46,16 @@ export function ComparisonTable({ platforms, columns }: ComparisonTableProps) {
   }
 
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full border-collapse">
+    <div className="overflow-x-auto -mx-4 px-4">
+      <div className="min-w-full inline-block">
+        <table className="w-full border-collapse min-w-[600px]">
         <thead>
           <tr className="border-b border-border">
             <th className="text-left p-4 font-semibold">Plateforme</th>
             {columns.map((column) => (
               <th
                 key={column}
-                className="text-left p-4 font-semibold cursor-pointer hover:bg-accent/50 transition-colors"
+                className="text-left p-2 sm:p-3 md:p-4 font-semibold cursor-pointer hover:bg-accent/50 transition-colors text-xs sm:text-sm"
                 onClick={() => handleSort(column)}
               >
                 <div className="flex items-center space-x-2">
@@ -81,9 +82,9 @@ export function ComparisonTable({ platforms, columns }: ComparisonTableProps) {
               className="border-b border-border hover:bg-accent/30 transition-colors cursor-pointer"
               onClick={() => toggleRow(platform.id)}
             >
-              <td className="p-4">
-                <div className="flex items-center space-x-2">
-                  <span className="font-semibold">{platform.name}</span>
+              <td className="p-2 sm:p-3 md:p-4">
+                <div className="flex items-center space-x-1 sm:space-x-2 flex-wrap">
+                  <span className="font-semibold text-xs sm:text-sm">{platform.name}</span>
                   <div className="flex items-center space-x-1">
                     {[...Array(5)].map((_, i) => (
                       <Star
@@ -99,10 +100,10 @@ export function ComparisonTable({ platforms, columns }: ComparisonTableProps) {
                   </div>
                 </div>
               </td>
-              <td className="p-4">{platform.minDeposit}€</td>
-              <td className="p-4">{platform.spread}</td>
-              <td className="p-4">{platform.leverage}</td>
-              <td className="p-4">
+              <td className="p-2 sm:p-3 md:p-4 text-xs sm:text-sm">{platform.minDeposit}€</td>
+              <td className="p-2 sm:p-3 md:p-4 text-xs sm:text-sm">{platform.spread}</td>
+              <td className="p-2 sm:p-3 md:p-4 text-xs sm:text-sm">{platform.leverage}</td>
+              <td className="p-2 sm:p-3 md:p-4">
                 <div className="flex flex-wrap gap-1">
                   {platform.regulations.map((reg) => (
                     <span key={reg} className="text-xs px-2 py-1 bg-primary/20 rounded">
@@ -124,6 +125,7 @@ export function ComparisonTable({ platforms, columns }: ComparisonTableProps) {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   )
 }

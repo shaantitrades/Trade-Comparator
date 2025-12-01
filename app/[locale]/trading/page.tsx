@@ -79,20 +79,20 @@ export default function TradingPage() {
   return (
     <div className="container mx-auto px-4 py-20">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-4">Plateformes de Trading Forex</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Plateformes de Trading Forex</h1>
+        <p className="text-sm sm:text-base text-muted-foreground">
           Comparez les meilleures plateformes de trading Forex avec des données transparentes
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
         {/* Sidebar Filters */}
-        <div className="lg:col-span-1">
+        <div className="lg:col-span-1 order-2 lg:order-1">
           <FilterSidebar filters={filterOptions} onFilterChange={setFilters} />
         </div>
 
         {/* Main Content */}
-        <div className="lg:col-span-3 space-y-6">
+        <div className="lg:col-span-3 space-y-4 sm:space-y-5 md:space-y-6 order-1 lg:order-2">
           {loading ? (
             <div className="text-center py-12">
               <p className="text-muted-foreground">Chargement des plateformes...</p>
@@ -104,16 +104,16 @@ export default function TradingPage() {
           ) : (
             <>
               {/* Comparison Table */}
-              <div className="glass rounded-lg p-6">
-                <h2 className="text-2xl font-semibold mb-4">Comparaison rapide</h2>
+              <div className="glass rounded-lg p-4 sm:p-5 md:p-6">
+                <h2 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4">Comparaison rapide</h2>
                 <ComparisonTable
                   platforms={platforms}
                   columns={['Dépôt min', 'Spread', 'Effet de levier', 'Régulation', 'Plateforme']}
                 />
               </div>
 
-              {/* Platform Cards */}
-              <div className="grid md:grid-cols-2 gap-6">
+          {/* Platform Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
                 {platforms.map((platform) => (
                   <PlatformCard key={platform.id} {...platform} />
                 ))}

@@ -2,7 +2,7 @@
 
 import { useTranslations, useLocale } from 'next-intl'
 import Link from 'next/link'
-import { TrendingUp } from 'lucide-react'
+import { Logo } from '@/components/shared/Logo'
 
 export function Footer() {
   const t = useTranslations('common')
@@ -15,8 +15,8 @@ export function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <TrendingUp className="w-6 h-6 text-primary" />
-              <span className="text-lg font-bold">Trade Comparator</span>
+              <Logo size={32} />
+              <span className="text-base sm:text-lg font-bold">Trade Comparator</span>
             </div>
             <p className="text-sm text-muted-foreground">
               {t('footer.description')}

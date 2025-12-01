@@ -51,9 +51,9 @@ export function Header() {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
             >
-              <Logo size={56} />
+              <Logo size={40} className="sm:w-12 sm:h-12 md:w-14 md:h-14" />
             </motion.div>
-            <span className="text-xl font-bold gradient-text">
+            <span className="text-base sm:text-lg md:text-xl font-bold gradient-text hidden sm:inline">
               Trade Comparator
             </span>
           </Link>

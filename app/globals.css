@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Viewport meta tag is handled by Next.js, but ensure proper scaling */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
+  
+  body {
+    overflow-x: hidden;
+  }
+}
+
 @layer base {
   :root {
     --background: 222.2 84% 4.9%;
