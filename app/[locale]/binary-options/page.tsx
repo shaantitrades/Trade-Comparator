@@ -53,9 +53,9 @@ export default function BinaryOptionsPage() {
   return (
     <div className="container mx-auto px-4 py-20">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-4">Plateformes d'Options Binaires</h1>
+        <h1 className="text-4xl font-bold mb-4">Plateformes d&apos;Options Binaires</h1>
         <p className="text-muted-foreground">
-          Comparez les plateformes d'options binaires
+          Comparez les plateformes d&apos;options binaires
         </p>
       </div>
 

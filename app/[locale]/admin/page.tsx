@@ -193,7 +193,7 @@ export default function AdminPage() {
   if (authenticated === null) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-muted-foreground">Vérification de l'authentification...</p>
+        <p className="text-muted-foreground">Vérification de l&apos;authentification...</p>
       </div>
     )
   }
@@ -277,7 +277,7 @@ export default function AdminPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Lien d'affiliation *</label>
+                <label className="block text-sm font-medium mb-2">Lien d&apos;affiliation *</label>
                 <input
                   type="url"
                   value={formData.affiliateUrl || ''}
@@ -535,7 +535,7 @@ export default function AdminPage() {
         {platforms.length === 0 ? (
           <div className="glass rounded-lg p-12 text-center">
             <p className="text-muted-foreground">Aucune plateforme pour le moment.</p>
-            <p className="text-sm text-muted-foreground mt-2">Cliquez sur "Ajouter une plateforme" pour commencer.</p>
+            <p className="text-sm text-muted-foreground mt-2">Cliquez sur &quot;Ajouter une plateforme&quot; pour commencer.</p>
           </div>
         ) : (
           platforms.map((platform) => (
@@ -561,7 +561,7 @@ export default function AdminPage() {
                       rel="noopener noreferrer"
                       className="text-sm text-primary hover:underline mt-1 block"
                     >
-                      Lien d'affiliation
+                      Lien d&apos;affiliation
                     </a>
                   )}
                 </div>
