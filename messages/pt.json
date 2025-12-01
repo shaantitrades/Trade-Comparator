@@ -1,0 +1,47 @@
+{
+  "common": {
+    "nav": {
+      "trading": "Plataformas de trading Forex",
+      "crypto": "Plataformas de Crypto",
+      "propFirms": "Plataformas de Prop Firms",
+      "binaryOptions": "Plataformas de opções binárias",
+      "blog": "Blog",
+      "signals": "Plataformas de sinais em tempo real",
+      "education": "Plataformas de formação e educação"
+    },
+    "cta": {
+      "findPlatform": "Encontrar minha plataforma",
+      "compareNow": "Comparar agora",
+      "learnMore": "Saber mais"
+    },
+    "footer": {
+      "description": "Seu comparador confiável para plataformas de trading",
+      "categories": "Categorias",
+      "legal": "Legal",
+      "terms": "Termos de serviço",
+      "privacy": "Política de privacidade",
+      "disclaimer": "Aviso legal",
+      "contact": "Contato",
+      "contactText": "contact@tradecomparator.com",
+      "rights": "Todos os direitos reservados"
+    },
+    "hero": {
+      "title": "Encontre a plataforma de trading perfeita",
+      "subtitle": "Compare mais de 100 plataformas de trading com dados transparentes e atualizados",
+      "description": "Forex, Crypto, Prop Firms e Opções Binárias - Tudo que você precisa para tomar a melhor decisão"
+    },
+    "stats": {
+      "platforms": "Plataformas",
+      "countries": "Países",
+      "reviews": "Avaliações verificadas",
+      "users": "Usuários"
+    },
+    "categories": {
+      "compareBest": "Compare as melhores plataformas",
+      "signalsSubtitle": "Compare as melhores plataformas de sinais em tempo real",
+      "educationSubtitle": "Compare as melhores plataformas educacionais para traders"
+    }
+  }
+}
+
+

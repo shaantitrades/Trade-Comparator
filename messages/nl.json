@@ -1,0 +1,47 @@
+{
+  "common": {
+    "nav": {
+      "trading": "Forex-handelsplatformen",
+      "crypto": "Crypto-platformen",
+      "propFirms": "Prop-firm-platformen",
+      "binaryOptions": "Platformen voor binaire opties",
+      "blog": "Blog",
+      "signals": "Platformen voor live signalen",
+      "education": "Platformen voor training en educatie"
+    },
+    "cta": {
+      "findPlatform": "Mijn platform vinden",
+      "compareNow": "Nu vergelijken",
+      "learnMore": "Meer weten"
+    },
+    "footer": {
+      "description": "Uw vertrouwde vergelijker voor tradingplatforms",
+      "categories": "Categorieën",
+      "legal": "Juridisch",
+      "terms": "Servicevoorwaarden",
+      "privacy": "Privacybeleid",
+      "disclaimer": "Disclaimer",
+      "contact": "Contact",
+      "contactText": "contact@tradecomparator.com",
+      "rights": "Alle rechten voorbehouden"
+    },
+    "hero": {
+      "title": "Vind het perfecte tradingplatform",
+      "subtitle": "Vergelijk meer dan 100 tradingplatforms met transparante en actuele gegevens",
+      "description": "Forex, Crypto, Prop Firms en Binaire Opties - Alles wat u nodig heeft om de beste beslissing te nemen"
+    },
+    "stats": {
+      "platforms": "Platforms",
+      "countries": "Landen",
+      "reviews": "Geverifieerde beoordelingen",
+      "users": "Gebruikers"
+    },
+    "categories": {
+      "compareBest": "Vergelijk de beste platforms",
+      "signalsSubtitle": "Vergelijk de beste real-time signaalplatforms",
+      "educationSubtitle": "Vergelijk de beste educatieve platforms voor traders"
+    }
+  }
+}
+
+

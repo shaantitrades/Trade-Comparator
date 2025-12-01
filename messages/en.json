@@ -1,0 +1,47 @@
+{
+  "common": {
+    "nav": {
+      "trading": "Forex trading platforms",
+      "crypto": "Crypto platforms",
+      "propFirms": "Prop firm platforms",
+      "binaryOptions": "Binary options platforms",
+      "blog": "Blog",
+      "signals": "Live signal platforms",
+      "education": "Education & course platforms"
+    },
+    "cta": {
+      "findPlatform": "Find my platform",
+      "compareNow": "Compare now",
+      "learnMore": "Learn more"
+    },
+    "footer": {
+      "description": "Your trusted comparator for trading platforms",
+      "categories": "Categories",
+      "legal": "Legal",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "disclaimer": "Disclaimer",
+      "contact": "Contact",
+      "contactText": "contact@tradecomparator.com",
+      "rights": "All rights reserved"
+    },
+    "hero": {
+      "title": "Find the perfect trading platform",
+      "subtitle": "Compare over 100 trading platforms with transparent and up-to-date data",
+      "description": "Forex, Crypto, Prop Firms and Binary Options - Everything you need to make the best decision"
+    },
+    "stats": {
+      "platforms": "Platforms",
+      "countries": "Countries",
+      "reviews": "Verified Reviews",
+      "users": "Users"
+    },
+    "categories": {
+      "compareBest": "Compare the best platforms",
+      "signalsSubtitle": "Compare the best real-time signal platforms",
+      "educationSubtitle": "Compare the best educational platforms for traders"
+    }
+  }
+}
+
+
