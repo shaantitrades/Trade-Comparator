@@ -6,6 +6,8 @@ import { locales } from '@/i18n'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 
+export const dynamic = 'force-dynamic'
+
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
 }
