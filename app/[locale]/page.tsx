@@ -24,7 +24,7 @@ export default function HomePage() {
       <GradientBackground />
       
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-4">
+      <section className="relative pt-24 pb-12 px-4">
         <div className="container mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -54,37 +54,10 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="text-sm sm:text-base md:text-lg text-muted-foreground mb-6 md:mb-8 px-4"
+              className="text-sm sm:text-base md:text-lg text-muted-foreground mb-4 md:mb-6 px-4"
             >
               {t('hero.description')}
             </motion.p>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4"
-            >
-              <Button size="lg" variant="gradient" className="text-lg px-8 py-6" asChild>
-                <Link href={`/${locale}/trading`}>
-                  {t('cta.findPlatform')}
-                </Link>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="text-lg px-8 py-6"
-                type="button"
-                onClick={() => {
-                  const section = document.getElementById('categories-section')
-                  if (section) {
-                    section.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                  }
-                }}
-              >
-                {t('cta.learnMore')}
-              </Button>
-            </motion.div>
           </motion.div>
 
         </div>
