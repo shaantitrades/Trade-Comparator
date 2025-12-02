@@ -124,8 +124,8 @@ export default function AdminPage() {
       // Fallback : sauvegarde locale si Supabase n'est pas configuré
       if (isAdding) {
         const newPlatform: Platform = {
+          ...(formData as Platform),
           id: Date.now().toString(),
-          ...formData as Platform,
         }
         setPlatforms([...platforms, newPlatform])
         setIsAdding(false)
