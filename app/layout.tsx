@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: 'Trade Comparator - Comparateur de Plateformes de Trading',
   description: 'Comparez les meilleures plateformes de trading : Forex, Crypto, Prop Firms et Options Binaires. Données à jour, avis vérifiés.',
   keywords: 'trading, forex, crypto, comparaison, plateformes',
+  verification: {
+    google: 'o96Blh7AgUihtyl2bEuKBF1EKadtl8NU1OAf7sTEz8Q',
+  },
   icons: {
     icon: [
       { url: '/icon.svg', type: 'image/svg+xml' },
