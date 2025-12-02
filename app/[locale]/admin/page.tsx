@@ -35,6 +35,30 @@ export default function AdminPage() {
     website: '',
   })
 
+  // Vérifier l'authentification au chargement de la page
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await fetch('/api/admin/auth', {
+          method: 'GET',
+          credentials: 'include',
+        })
+
+        if (res.ok) {
+          const data = await res.json()
+          setAuthenticated(data.authenticated === true)
+        } else {
+          setAuthenticated(false)
+        }
+      } catch (error) {
+        console.error('Erreur lors de la vérification de l’authentification', error)
+        setAuthenticated(false)
+      }
+    }
+
+    checkAuth()
+  }, [])
+
   // Charger les plateformes (à remplacer par un appel API réel)
   useEffect(() => {
     // TODO: Charger depuis Supabase
