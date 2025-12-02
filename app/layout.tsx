@@ -9,16 +9,8 @@ const inter = Inter({
   display: 'swap',
 })
 
+// Les métadonnées SEO sont gérées dans app/[locale]/layout.tsx pour chaque langue
 export const metadata: Metadata = {
-  title: 'Trade Comparator - Comparateur de Plateformes de Trading',
-  description: 'Comparez les meilleures plateformes de trading : Forex, Crypto, Prop Firms et Options Binaires. Données à jour, avis vérifiés.',
-  keywords: 'trading, forex, crypto, comparaison, plateformes',
-  verification: {
-    google: 'o96Blh7AgUihtyl2bEuKBF1EKadtl8NU1OAf7sTEz8Q',
-  },
-  other: {
-    'google-adsense-account': 'ca-pub-5343389597650456',
-  },
   icons: {
     icon: [
       { url: '/icon.svg', type: 'image/svg+xml' },

@@ -1,18 +1,19 @@
 <svg width="32" height="32" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <!-- Gradient doré pour la balance -->
+    <!-- Gradient doré premium pour la balance -->
     <linearGradient id="goldGradient" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stopColor="#FFD700" stopOpacity="1" />
-      <stop offset="50%" stopColor="#FFA500" stopOpacity="1" />
-      <stop offset="100%" stopColor="#DAA520" stopOpacity="1" />
+      <stop offset="30%" stopColor="#FFC107" stopOpacity="1" />
+      <stop offset="60%" stopColor="#FFA500" stopOpacity="1" />
+      <stop offset="100%" stopColor="#D4AF37" stopOpacity="1" />
     </linearGradient>
     
-    <!-- Ombre -->
+    <!-- Ombre améliorée -->
     <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
       <feOffset dx="1" dy="2" result="offsetblur"/>
       <feComponentTransfer>
-        <feFuncA type="linear" slope="0.3"/>
+        <feFuncA type="linear" slope="0.4"/>
       </feComponentTransfer>
       <feMerge>
         <feMergeNode/>
@@ -21,17 +22,17 @@
     </filter>
   </defs>
 
-  <!-- Fond sombre pour le favicon -->
-  <rect width="120" height="120" fill="#0F172A" rx="8"/>
+  <!-- Fond noir pur pour le favicon -->
+  <rect width="120" height="120" fill="#000000" rx="8"/>
 
-  <!-- Ombre sous la base -->
+  <!-- Ombre sous la base améliorée -->
   <ellipse
     cx="60"
     cy="115"
     rx="25"
     ry="5"
-    fill="#808080"
-    opacity="0.4"
+    fill="#333333"
+    opacity="0.6"
   />
 
   <!-- Colonne centrale -->
@@ -83,9 +84,9 @@
   <!-- Chaînes et plateaux - Côté gauche -->
   <g>
     <!-- Chaînes gauche -->
-    <line x1="25" y1="25" x2="25" y2="40" stroke="url(#goldGradient)" strokeWidth="1.5" filter="url(#shadow)" />
-    <line x1="30" y1="25" x2="30" y2="40" stroke="url(#goldGradient)" strokeWidth="1.5" filter="url(#shadow)" />
-    <line x1="35" y1="25" x2="35" y2="40" stroke="url(#goldGradient)" strokeWidth="1.5" filter="url(#shadow)" />
+    <line x1="25" y1="25" x2="25" y2="40" stroke="url(#goldGradient)" strokeWidth="2" filter="url(#shadow)" />
+    <line x1="30" y1="25" x2="30" y2="40" stroke="url(#goldGradient)" strokeWidth="2" filter="url(#shadow)" />
+    <line x1="35" y1="25" x2="35" y2="40" stroke="url(#goldGradient)" strokeWidth="2" filter="url(#shadow)" />
     
     <!-- Plateau gauche -->
     <ellipse
@@ -111,9 +112,9 @@
   <!-- Chaînes et plateaux - Côté droit -->
   <g>
     <!-- Chaînes droite -->
-    <line x1="85" y1="25" x2="85" y2="40" stroke="url(#goldGradient)" strokeWidth="1.5" filter="url(#shadow)" />
-    <line x1="90" y1="25" x2="90" y2="40" stroke="url(#goldGradient)" strokeWidth="1.5" filter="url(#shadow)" />
-    <line x1="95" y1="25" x2="95" y2="40" stroke="url(#goldGradient)" strokeWidth="1.5" filter="url(#shadow)" />
+    <line x1="85" y1="25" x2="85" y2="40" stroke="url(#goldGradient)" strokeWidth="2" filter="url(#shadow)" />
+    <line x1="90" y1="25" x2="90" y2="40" stroke="url(#goldGradient)" strokeWidth="2" filter="url(#shadow)" />
+    <line x1="95" y1="25" x2="95" y2="40" stroke="url(#goldGradient)" strokeWidth="2" filter="url(#shadow)" />
     
     <!-- Plateau droit -->
     <ellipse

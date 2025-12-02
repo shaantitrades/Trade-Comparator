@@ -38,3 +38,5 @@ export function RegulationBadge({ regulation, className }: RegulationBadgeProps)
 
 
 
+
+
