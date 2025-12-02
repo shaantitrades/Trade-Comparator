@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { AnimatedCounter } from '@/components/shared/AnimatedCounter'
 import { GradientBackground } from '@/components/shared/GradientBackground'
-import { TrendingUp, Shield, Globe, Users, Bitcoin, Building2, Target, Radio, GraduationCap } from 'lucide-react'
+import { TrendingUp, Shield, Globe, Users, Bitcoin, Building2, Target, Radio, GraduationCap, ArrowRight } from 'lucide-react'
 
 export default function HomePage() {
   const t = useTranslations('common')
@@ -65,10 +65,23 @@ export default function HomePage() {
               transition={{ duration: 0.6, delay: 0.8 }}
               className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4"
             >
-              <Button size="lg" variant="gradient" className="text-lg px-8 py-6">
-                {t('cta.findPlatform')}
+              <Button size="lg" variant="gradient" className="text-lg px-8 py-6" asChild>
+                <Link href={`/${locale}/trading`}>
+                  {t('cta.findPlatform')}
+                </Link>
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 py-6">
+              <Button
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6"
+                type="button"
+                onClick={() => {
+                  const section = document.getElementById('categories-section')
+                  if (section) {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  }
+                }}
+              >
                 {t('cta.learnMore')}
               </Button>
             </motion.div>
@@ -78,7 +91,7 @@ export default function HomePage() {
       </section>
 
       {/* Preview Sections */}
-      <section className="py-12 sm:py-16 md:py-20 px-4">
+      <section id="categories-section" className="py-12 sm:py-16 md:py-20 px-4">
         <div className="container mx-auto">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-10 md:mb-12">
             {t('categories.title')}
@@ -156,13 +169,18 @@ export default function HomePage() {
                     className={`glass rounded-lg p-4 sm:p-5 md:p-6 hover:scale-105 transition-all cursor-pointer relative overflow-hidden bg-gradient-to-br ${category.gradient} border border-white/10`}
                   >
                     <div className="relative z-10">
-                      <div className="flex items-center space-x-3 mb-3">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center space-x-3">
                         <div className={`p-1.5 sm:p-2 rounded-lg bg-white/10 backdrop-blur-sm ${category.iconColor}`}>
                           <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                         </div>
                         <h3 className="text-base sm:text-lg md:text-xl font-semibold">
                           {t(`nav.${category.key}`)}
                         </h3>
+                        </div>
+                        <div className="hidden sm:flex items-center justify-center w-7 h-7 rounded-full border border-white/20 bg-black/20">
+                          <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                        </div>
                       </div>
                       <p className="text-xs sm:text-sm text-muted-foreground">
                         {t(category.subtitleKey)}
