@@ -53,19 +53,19 @@ export default function PropFirmsPage() {
   return (
     <div className="container mx-auto px-4 py-20">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-4">Plateformes Prop Firms</h1>
+        <h1 className="text-4xl font-bold mb-4">{t('pages.propFirms.title')}</h1>
         <p className="text-muted-foreground">
-          Comparez les meilleures prop firms pour traders
+          {t('pages.propFirms.description')}
         </p>
       </div>
 
       {loading ? (
         <div className="text-center py-12">
-          <p className="text-muted-foreground">Chargement des plateformes...</p>
+          <p className="text-muted-foreground">{t('pages.loading')}</p>
         </div>
       ) : platforms.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-muted-foreground">Aucune plateforme trouvée pour cette catégorie.</p>
+          <p className="text-muted-foreground">{t('pages.empty')}</p>
         </div>
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

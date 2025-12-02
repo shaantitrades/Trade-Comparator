@@ -79,9 +79,11 @@ export default function TradingPage() {
   return (
     <div className="container mx-auto px-4 py-20">
       <div className="mb-8">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Plateformes de Trading Forex</h1>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
+          {t('pages.trading.title')}
+        </h1>
         <p className="text-sm sm:text-base text-muted-foreground">
-          Comparez les meilleures plateformes de trading Forex avec des données transparentes
+          {t('pages.trading.description')}
         </p>
       </div>
 
@@ -95,20 +97,28 @@ export default function TradingPage() {
         <div className="lg:col-span-3 space-y-4 sm:space-y-5 md:space-y-6 order-1 lg:order-2">
           {loading ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">Chargement des plateformes...</p>
+              <p className="text-muted-foreground">{t('pages.loading')}</p>
             </div>
           ) : platforms.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">Aucune plateforme trouvée pour cette catégorie.</p>
+              <p className="text-muted-foreground">{t('pages.empty')}</p>
             </div>
           ) : (
             <>
               {/* Comparison Table */}
               <div className="glass rounded-lg p-4 sm:p-5 md:p-6">
-                <h2 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4">Comparaison rapide</h2>
+                <h2 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4">
+                  {t('pages.comparisonQuick')}
+                </h2>
                 <ComparisonTable
                   platforms={platforms}
-                  columns={['Dépôt min', 'Spread', 'Effet de levier', 'Régulation', 'Plateforme']}
+                  columns={[
+                    t('pages.trading.columns.minDeposit'),
+                    t('pages.trading.columns.spread'),
+                    t('pages.trading.columns.leverage'),
+                    t('pages.trading.columns.regulation'),
+                    t('pages.trading.columns.platform'),
+                  ]}
                 />
               </div>
 

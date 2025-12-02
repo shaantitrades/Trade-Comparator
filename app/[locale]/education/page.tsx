@@ -71,9 +71,9 @@ export default function EducationPage() {
   return (
     <div className="container mx-auto px-4 py-20">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-4">Formations & Éducation au Trading</h1>
+        <h1 className="text-4xl font-bold mb-4">{t('pages.education.title')}</h1>
         <p className="text-muted-foreground">
-          Comparez les meilleures plateformes pédagogiques pour apprendre le trading, du débutant au trader expérimenté
+          {t('pages.education.description')}
         </p>
       </div>
 
@@ -87,20 +87,27 @@ export default function EducationPage() {
         <div className="lg:col-span-3 space-y-6">
           {loading ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">Chargement des plateformes...</p>
+              <p className="text-muted-foreground">{t('pages.loading')}</p>
             </div>
           ) : platforms.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">Aucune plateforme trouvée pour cette catégorie.</p>
+              <p className="text-muted-foreground">{t('pages.empty')}</p>
             </div>
           ) : (
             <>
               {/* Comparison Table */}
               <div className="glass rounded-lg p-6">
-                <h2 className="text-2xl font-semibold mb-4">Comparaison rapide</h2>
+                <h2 className="text-2xl font-semibold mb-4">
+                  {t('pages.comparisonQuick')}
+                </h2>
                 <ComparisonTable
                   platforms={platforms}
-                  columns={['Niveau', 'Format', 'Support', 'Prix']}
+                  columns={[
+                    t('pages.education.columns.level'),
+                    t('pages.education.columns.format'),
+                    t('pages.education.columns.support'),
+                    t('pages.education.columns.price'),
+                  ]}
                 />
               </div>
 

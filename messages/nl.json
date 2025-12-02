@@ -41,6 +41,50 @@
       "compareBest": "Vergelijk de beste platforms",
       "signalsSubtitle": "Vergelijk de beste real-time signaalplatforms",
       "educationSubtitle": "Vergelijk de beste educatieve platforms voor traders"
+    },
+    "pages": {
+      "loading": "Platforms worden geladen...",
+      "empty": "Geen platforms gevonden voor deze categorie.",
+      "comparisonQuick": "Snelle vergelijking",
+      "trading": {
+        "title": "Forex-handelsplatformen",
+        "description": "Vergelijk de beste Forex-handelsplatformen met transparante gegevens",
+        "columns": {
+          "minDeposit": "Min. storting",
+          "spread": "Spread",
+          "leverage": "Hefboom",
+          "regulation": "Regulering",
+          "platform": "Platform"
+        }
+      },
+      "crypto": {
+        "title": "Crypto-platformen",
+        "description": "Vergelijk de beste crypto-handelsplatformen"
+      },
+      "propFirms": {
+        "title": "Prop-firm-platformen",
+        "description": "Vergelijk de beste prop firms voor traders"
+      },
+      "signals": {
+        "title": "Platformen voor live tradingsignalen",
+        "description": "Vergelijk de beste platforms voor tradingsignalen in real time voor crypto, forex en indexen",
+        "columns": {
+          "type": "Type",
+          "assets": "Activa",
+          "platform": "Platform",
+          "support": "Support"
+        }
+      },
+      "education": {
+        "title": "Trading-opleiding en educatie",
+        "description": "Vergelijk de beste educatieve platforms om trading te leren, van beginner tot gevorderde trader",
+        "columns": {
+          "level": "Niveau",
+          "format": "Formaat",
+          "support": "Support",
+          "price": "Prijs"
+        }
+      }
     }
   }
 }

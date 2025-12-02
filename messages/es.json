@@ -41,6 +41,50 @@
       "compareBest": "Compara las mejores plataformas",
       "signalsSubtitle": "Compara las mejores plataformas de señales en tiempo real",
       "educationSubtitle": "Compara las mejores plataformas educativas para traders"
+    },
+    "pages": {
+      "loading": "Cargando plataformas...",
+      "empty": "No se encontraron plataformas para esta categoría.",
+      "comparisonQuick": "Comparación rápida",
+      "trading": {
+        "title": "Plataformas de trading Forex",
+        "description": "Compara las mejores plataformas de trading Forex con datos transparentes",
+        "columns": {
+          "minDeposit": "Depósito mín.",
+          "spread": "Spread",
+          "leverage": "Apalancamiento",
+          "regulation": "Regulación",
+          "platform": "Plataforma"
+        }
+      },
+      "crypto": {
+        "title": "Plataformas de criptomonedas",
+        "description": "Compara las mejores plataformas de trading de criptomonedas"
+      },
+      "propFirms": {
+        "title": "Plataformas de prop firms",
+        "description": "Compara las mejores prop firms para traders"
+      },
+      "signals": {
+        "title": "Plataformas de señales de trading en directo",
+        "description": "Compara las mejores plataformas de señales de trading en tiempo real para crypto, forex e índices",
+        "columns": {
+          "type": "Tipo",
+          "assets": "Activos",
+          "platform": "Plataforma",
+          "support": "Soporte"
+        }
+      },
+      "education": {
+        "title": "Formación y educación en trading",
+        "description": "Compara las mejores plataformas educativas para aprender trading, desde principiante hasta avanzado",
+        "columns": {
+          "level": "Nivel",
+          "format": "Formato",
+          "support": "Soporte",
+          "price": "Precio"
+        }
+      }
     }
   }
 }

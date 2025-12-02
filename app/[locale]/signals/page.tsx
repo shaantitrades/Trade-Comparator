@@ -71,9 +71,9 @@ export default function SignalsPage() {
   return (
     <div className="container mx-auto px-4 py-20">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-4">Signaux de Trading en Direct</h1>
+        <h1 className="text-4xl font-bold mb-4">{t('pages.signals.title')}</h1>
         <p className="text-muted-foreground">
-          Comparez les meilleures plateformes de signaux de trading en temps réel pour crypto, forex et indices
+          {t('pages.signals.description')}
         </p>
       </div>
 
@@ -87,20 +87,27 @@ export default function SignalsPage() {
         <div className="lg:col-span-3 space-y-6">
           {loading ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">Chargement des plateformes...</p>
+              <p className="text-muted-foreground">{t('pages.loading')}</p>
             </div>
           ) : platforms.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">Aucune plateforme trouvée pour cette catégorie.</p>
+              <p className="text-muted-foreground">{t('pages.empty')}</p>
             </div>
           ) : (
             <>
               {/* Comparison Table */}
               <div className="glass rounded-lg p-6">
-                <h2 className="text-2xl font-semibold mb-4">Comparaison rapide</h2>
+                <h2 className="text-2xl font-semibold mb-4">
+                  {t('pages.comparisonQuick')}
+                </h2>
                 <ComparisonTable
                   platforms={platforms}
-                  columns={['Type', 'Actifs', 'Plateforme', 'Support']}
+                  columns={[
+                    t('pages.signals.columns.type'),
+                    t('pages.signals.columns.assets'),
+                    t('pages.signals.columns.platform'),
+                    t('pages.signals.columns.support'),
+                  ]}
                 />
               </div>
 
