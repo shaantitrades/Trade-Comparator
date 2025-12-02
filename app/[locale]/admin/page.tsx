@@ -123,16 +123,19 @@ export default function AdminPage() {
       alert('Erreur lors de la sauvegarde. Vérifiez que Supabase est configuré.')
       // Fallback : sauvegarde locale si Supabase n'est pas configuré
       if (isAdding) {
+        const { id: _ignored, ...rest } = formData as Platform
         const newPlatform: Platform = {
-          ...(formData as Platform),
           id: Date.now().toString(),
+          ...(rest as Omit<Platform, 'id'>),
         }
         setPlatforms([...platforms, newPlatform])
         setIsAdding(false)
         setIsEditing(null)
         setFormData({})
       } else if (isEditing) {
-        setPlatforms(platforms.map(p => p.id === isEditing ? { ...p, ...formData } : p))
+        setPlatforms(platforms.map((p) =>
+          p.id === isEditing ? { ...p, ...formData } : p
+        ))
         setIsAdding(false)
         setIsEditing(null)
         setFormData({})
@@ -324,11 +327,22 @@ export default function AdminPage() {
                         min="0"
                         max="5"
                         step="0.1"
-                        value={formData.ratings?.[key] || 0}
-                        onChange={(e) => setFormData({
-                          ...formData,
-                          ratings: { ...formData.ratings, [key]: Number(e.target.value) }
-                        })}
+                        value={formData.ratings?.[key] ?? 0}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...(prev || {}),
+                            ratings: {
+                              ...(prev?.ratings || {
+                                sécurité: 0,
+                                frais: 0,
+                                actifs: 0,
+                                plateforme: 0,
+                                support: 0,
+                              }),
+                              [key]: Number(e.target.value),
+                            },
+                          }))
+                        }
                         className="flex-1 rounded-md border border-input bg-background px-3 py-2"
                       />
                     </div>
