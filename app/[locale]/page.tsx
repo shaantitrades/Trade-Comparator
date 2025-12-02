@@ -24,7 +24,7 @@ export default function HomePage() {
       <GradientBackground />
       
       {/* Hero Section */}
-      <section className="relative pt-24 pb-12 px-4">
+      <section className="relative pt-20 pb-6 px-4">
         <div className="container mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -54,7 +54,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="text-sm sm:text-base md:text-lg text-muted-foreground mb-4 md:mb-6 px-4"
+              className="text-sm sm:text-base md:text-lg text-muted-foreground mb-2 md:mb-3 px-4"
             >
               {t('hero.description')}
             </motion.p>
@@ -64,9 +64,9 @@ export default function HomePage() {
       </section>
 
       {/* Preview Sections */}
-      <section id="categories-section" className="py-8 sm:py-10 md:py-12 px-4">
+      <section id="categories-section" className="py-4 sm:py-6 md:py-8 px-4">
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
             {[
               { 
                 key: 'trading', 
