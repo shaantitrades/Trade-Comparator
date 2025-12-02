@@ -21,6 +21,9 @@
     </filter>
   </defs>
 
+  <!-- Fond sombre pour le favicon -->
+  <rect width="120" height="120" fill="#0F172A" rx="8"/>
+
   <!-- Ombre sous la base -->
   <ellipse
     cx="60"

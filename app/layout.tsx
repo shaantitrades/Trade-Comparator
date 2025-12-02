@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 
 const inter = Inter({
@@ -14,6 +15,9 @@ export const metadata: Metadata = {
   keywords: 'trading, forex, crypto, comparaison, plateformes',
   verification: {
     google: 'o96Blh7AgUihtyl2bEuKBF1EKadtl8NU1OAf7sTEz8Q',
+  },
+  other: {
+    'google-adsense-account': 'ca-pub-5343389597650456',
   },
   icons: {
     icon: [
@@ -30,9 +34,18 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  // Publisher ID depuis la balise meta ou variable d'environnement
+  const adsensePublisherId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || 'ca-pub-5343389597650456'
+
   return (
     <html suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased`}>
+        <Script
+          id="adsbygoogle-init"
+          strategy="afterInteractive"
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsensePublisherId}`}
+          crossOrigin="anonymous"
+        />
         {children}
       </body>
     </html>
