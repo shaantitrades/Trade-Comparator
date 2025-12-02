@@ -4,17 +4,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Star, ChevronDown, ChevronUp } from 'lucide-react'
 import { cn } from '@/lib/utils'
-
-interface Platform {
-  id: string
-  name: string
-  rating: number
-  minDeposit: number
-  spread: string
-  leverage: string
-  regulations: string[]
-  platform: string[]
-}
+import type { Platform } from '@/types'
 
 interface ComparisonTableProps {
   platforms: Platform[]
@@ -101,8 +91,12 @@ export function ComparisonTable({ platforms, columns }: ComparisonTableProps) {
                 </div>
               </td>
               <td className="p-2 sm:p-3 md:p-4 text-xs sm:text-sm">{platform.minDeposit}€</td>
-              <td className="p-2 sm:p-3 md:p-4 text-xs sm:text-sm">{platform.spread}</td>
-              <td className="p-2 sm:p-3 md:p-4 text-xs sm:text-sm">{platform.leverage}</td>
+              <td className="p-2 sm:p-3 md:p-4 text-xs sm:text-sm">
+                {platform.spread ?? '-'}
+              </td>
+              <td className="p-2 sm:p-3 md:p-4 text-xs sm:text-sm">
+                {platform.leverage ?? '-'}
+              </td>
               <td className="p-2 sm:p-3 md:p-4">
                 <div className="flex flex-wrap gap-1">
                   {platform.regulations.map((reg) => (
@@ -114,7 +108,7 @@ export function ComparisonTable({ platforms, columns }: ComparisonTableProps) {
               </td>
               <td className="p-4">
                 <div className="flex flex-wrap gap-1">
-                  {platform.platform.map((p) => (
+                  {platform.platform?.map((p) => (
                     <span key={p} className="text-xs px-2 py-1 bg-secondary rounded">
                       {p}
                     </span>
