@@ -1,13 +1,16 @@
 <svg width="180" height="180" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="appleGold" x1="0%" y1="0%" x2="0%" y2="100%">
+    <!-- Gradient doré pour la balance -->
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stopColor="#FFD700" stopOpacity="1" />
       <stop offset="50%" stopColor="#FFA500" stopOpacity="1" />
       <stop offset="100%" stopColor="#DAA520" stopOpacity="1" />
     </linearGradient>
-    <filter id="appleShadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur in="SourceAlpha" stdDeviation="1.5"/>
-      <feOffset dx="0.5" dy="1" result="offsetblur"/>
+    
+    <!-- Ombre -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+      <feOffset dx="1" dy="2" result="offsetblur"/>
       <feComponentTransfer>
         <feFuncA type="linear" slope="0.3"/>
       </feComponentTransfer>
@@ -18,51 +21,115 @@
     </filter>
   </defs>
 
-  <!-- Fond circulaire -->
-  <circle cx="60" cy="60" r="58" fill="#0A0A0A" />
-  
-  <!-- Ombre -->
-  <ellipse cx="60" cy="115" rx="20" ry="4" fill="#808080" opacity="0.3" />
+  <!-- Ombre sous la base -->
+  <ellipse
+    cx="60"
+    cy="115"
+    rx="25"
+    ry="5"
+    fill="#808080"
+    opacity="0.4"
+  />
 
   <!-- Colonne centrale -->
   <path
-    d="M 55 100 L 55 20 L 65 20 L 65 100 Z
-       M 50 100 L 50 95 L 70 95 L 70 100 Z
-       M 58 20 L 58 15 L 62 15 L 62 20 Z
-       M 60 15 L 60 10 L 58 10 L 60 8 L 62 10 L 60 10 Z"
-    fill="url(#appleGold)"
-    filter="url(#appleShadow)"
+    d="M 55 100
+       L 55 20
+       L 65 20
+       L 65 100
+       Z
+       M 50 100
+       L 50 95
+       L 70 95
+       L 70 100
+       Z
+       M 58 20
+       L 58 15
+       L 62 15
+       L 62 20
+       Z
+       M 60 15
+       L 60 10
+       L 58 10
+       L 60 8
+       L 62 10
+       L 60 10
+       Z"
+    fill="url(#goldGradient)"
+    filter="url(#shadow)"
   />
 
-  <!-- Barre horizontale -->
+  <!-- Barre horizontale (beam) -->
   <path
-    d="M 20 25 Q 20 20, 25 20 L 55 20 L 65 20 L 95 20 Q 100 20, 100 25 Q 100 30, 95 30 L 65 30 L 55 30 L 25 30 Q 20 30, 20 25 Z"
-    fill="url(#appleGold)"
-    filter="url(#appleShadow)"
+    d="M 20 25
+       Q 20 20, 25 20
+       L 55 20
+       L 65 20
+       L 95 20
+       Q 100 20, 100 25
+       Q 100 30, 95 30
+       L 65 30
+       L 55 30
+       L 25 30
+       Q 20 30, 20 25
+       Z"
+    fill="url(#goldGradient)"
+    filter="url(#shadow)"
   />
 
-  <!-- Chaînes et plateau gauche -->
-  <line x1="25" y1="25" x2="25" y2="40" stroke="url(#appleGold)" strokeWidth="1.2" filter="url(#appleShadow)" />
-  <line x1="30" y1="25" x2="30" y2="40" stroke="url(#appleGold)" strokeWidth="1.2" filter="url(#appleShadow)" />
-  <line x1="35" y1="25" x2="35" y2="40" stroke="url(#appleGold)" strokeWidth="1.2" filter="url(#appleShadow)" />
-  <ellipse cx="30" cy="45" rx="10" ry="2.5" fill="url(#appleGold)" filter="url(#appleShadow)" />
-  <path
-    d="M 20 45 Q 20 50, 30 54 Q 40 50, 40 45 Q 40 40, 30 45 Q 20 40, 20 45 Z"
-    fill="url(#appleGold)"
-    filter="url(#appleShadow)"
-  />
+  <!-- Chaînes et plateaux - Côté gauche -->
+  <g>
+    <!-- Chaînes gauche -->
+    <line x1="25" y1="25" x2="25" y2="40" stroke="url(#goldGradient)" strokeWidth="1.5" filter="url(#shadow)" />
+    <line x1="30" y1="25" x2="30" y2="40" stroke="url(#goldGradient)" strokeWidth="1.5" filter="url(#shadow)" />
+    <line x1="35" y1="25" x2="35" y2="40" stroke="url(#goldGradient)" strokeWidth="1.5" filter="url(#shadow)" />
+    
+    <!-- Plateau gauche -->
+    <ellipse
+      cx="30"
+      cy="45"
+      rx="12"
+      ry="3"
+      fill="url(#goldGradient)"
+      filter="url(#shadow)"
+    />
+    <path
+      d="M 18 45
+         Q 18 50, 30 55
+         Q 42 50, 42 45
+         Q 42 40, 30 45
+         Q 18 40, 18 45
+         Z"
+      fill="url(#goldGradient)"
+      filter="url(#shadow)"
+    />
+  </g>
 
-  <!-- Chaînes et plateau droit -->
-  <line x1="85" y1="25" x2="85" y2="40" stroke="url(#appleGold)" strokeWidth="1.2" filter="url(#appleShadow)" />
-  <line x1="90" y1="25" x2="90" y2="40" stroke="url(#appleGold)" strokeWidth="1.2" filter="url(#appleShadow)" />
-  <line x1="95" y1="25" x2="95" y2="40" stroke="url(#appleGold)" strokeWidth="1.2" filter="url(#appleShadow)" />
-  <ellipse cx="90" cy="45" rx="10" ry="2.5" fill="url(#appleGold)" filter="url(#appleShadow)" />
-  <path
-    d="M 80 45 Q 80 50, 90 54 Q 100 50, 100 45 Q 100 40, 90 45 Q 80 40, 80 45 Z"
-    fill="url(#appleGold)"
-    filter="url(#appleShadow)"
-  />
+  <!-- Chaînes et plateaux - Côté droit -->
+  <g>
+    <!-- Chaînes droite -->
+    <line x1="85" y1="25" x2="85" y2="40" stroke="url(#goldGradient)" strokeWidth="1.5" filter="url(#shadow)" />
+    <line x1="90" y1="25" x2="90" y2="40" stroke="url(#goldGradient)" strokeWidth="1.5" filter="url(#shadow)" />
+    <line x1="95" y1="25" x2="95" y2="40" stroke="url(#goldGradient)" strokeWidth="1.5" filter="url(#shadow)" />
+    
+    <!-- Plateau droit -->
+    <ellipse
+      cx="90"
+      cy="45"
+      rx="12"
+      ry="3"
+      fill="url(#goldGradient)"
+      filter="url(#shadow)"
+    />
+    <path
+      d="M 78 45
+         Q 78 50, 90 55
+         Q 102 50, 102 45
+         Q 102 40, 90 45
+         Q 78 40, 78 45
+         Z"
+      fill="url(#goldGradient)"
+      filter="url(#shadow)"
+    />
+  </g>
 </svg>
-
-
-
