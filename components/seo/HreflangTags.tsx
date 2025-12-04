@@ -16,7 +16,7 @@ export function HreflangTags({ locale }: { locale: Locale }) {
     locales.forEach((loc) => {
       const link = document.createElement('link')
       link.rel = 'alternate'
-      link.hrefLang = loc
+      link.setAttribute('hreflang', loc)
       link.href = `${baseUrl}/${loc}`
       document.head.appendChild(link)
     })
@@ -24,7 +24,7 @@ export function HreflangTags({ locale }: { locale: Locale }) {
     // Ajouter la balise x-default pointant vers l'anglais (version par défaut)
     const defaultLink = document.createElement('link')
     defaultLink.rel = 'alternate'
-    defaultLink.hrefLang = 'x-default'
+    defaultLink.setAttribute('hreflang', 'x-default')
     defaultLink.href = `${baseUrl}/en`
     document.head.appendChild(defaultLink)
 

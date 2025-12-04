@@ -1,12 +1,14 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useLocale } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Plus, Edit, Trash2, Save, X, LogOut } from 'lucide-react'
 import { Platform, PlatformRating } from '@/types'
 import { AdminLogin } from '@/components/admin/AdminLogin'
 
 export default function AdminPage() {
+  const locale = useLocale()
   const [authenticated, setAuthenticated] = useState<boolean | null>(null)
   const [platforms, setPlatforms] = useState<Platform[]>([])
   const [isEditing, setIsEditing] = useState<string | null>(null)
@@ -59,15 +61,51 @@ export default function AdminPage() {
     checkAuth()
   }, [])
 
-  // Charger les plateformes (à remplacer par un appel API réel)
+  // Charger les plateformes depuis Supabase
+  const loadPlatforms = async () => {
+    try {
+      const { getPlatforms } = await import('@/lib/supabase')
+      const data = await getPlatforms() // Charger toutes les plateformes sans filtre
+      
+      // Convertir le format DB vers le format Platform
+      const formattedPlatforms: Platform[] = data.map((p: any) => ({
+        id: p.id,
+        name: p.name,
+        slug: p.slug,
+        category: p.category,
+        rating: Number(p.rating) || 0,
+        ratings: p.ratings || {
+          sécurité: 0,
+          frais: 0,
+          actifs: 0,
+          plateforme: 0,
+          support: 0,
+        },
+        advantages: p.advantages || [],
+        disadvantages: p.disadvantages || [],
+        regulations: p.regulations || [],
+        minDeposit: p.min_deposit || 0,
+        affiliateUrl: p.affiliate_url || '',
+        spread: p.spread,
+        leverage: p.leverage,
+        platform: p.platform || [],
+        description: p.description,
+        website: p.website,
+        logo: p.logo,
+      }))
+      
+      setPlatforms(formattedPlatforms)
+    } catch (error) {
+      console.error('Erreur lors du chargement des plateformes:', error)
+      setPlatforms([])
+    }
+  }
+
   useEffect(() => {
-    // TODO: Charger depuis Supabase
-    // const loadPlatforms = async () => {
-    //   const { data } = await supabase.from('platforms').select('*')
-    //   setPlatforms(data || [])
-    // }
-    // loadPlatforms()
-  }, [])
+    if (authenticated) {
+      loadPlatforms()
+    }
+  }, [authenticated])
 
   const handleAdd = () => {
     setIsAdding(true)
@@ -128,42 +166,20 @@ export default function AdminPage() {
       }
 
       if (isAdding) {
-        const newPlatform = await createPlatform(dbData)
-        setPlatforms([...platforms, {
-          ...newPlatform,
-          minDeposit: newPlatform.min_deposit,
-          affiliateUrl: newPlatform.affiliate_url,
-        } as Platform])
+        await createPlatform(dbData)
       } else if (isEditing) {
         await updatePlatform(isEditing, dbData)
-        setPlatforms(platforms.map(p => p.id === isEditing ? { ...p, ...formData } : p))
       }
+      
+      // Recharger les plateformes depuis la base de données
+      await loadPlatforms()
       
       setIsAdding(false)
       setIsEditing(null)
       setFormData({})
     } catch (error) {
       console.error('Error saving platform:', error)
-      alert('Erreur lors de la sauvegarde. Vérifiez que Supabase est configuré.')
-      // Fallback : sauvegarde locale si Supabase n'est pas configuré
-      if (isAdding) {
-        const { id: _ignored, ...rest } = formData as Platform
-        const newPlatform: Platform = {
-          id: Date.now().toString(),
-          ...(rest as Omit<Platform, 'id'>),
-        }
-        setPlatforms([...platforms, newPlatform])
-        setIsAdding(false)
-        setIsEditing(null)
-        setFormData({})
-      } else if (isEditing) {
-        setPlatforms(platforms.map((p) =>
-          p.id === isEditing ? { ...p, ...formData } : p
-        ))
-        setIsAdding(false)
-        setIsEditing(null)
-        setFormData({})
-      }
+      alert('Erreur lors de la sauvegarde. Vérifiez que Supabase est configuré et que les données sont correctes.')
     }
   }
 
@@ -172,11 +188,11 @@ export default function AdminPage() {
       try {
         const { deletePlatform } = await import('@/lib/supabase')
         await deletePlatform(id)
-        setPlatforms(platforms.filter(p => p.id !== id))
+        // Recharger les plateformes depuis la base de données
+        await loadPlatforms()
       } catch (error) {
         console.error('Error deleting platform:', error)
-        // Fallback : suppression locale si Supabase n'est pas configuré
-        setPlatforms(platforms.filter(p => p.id !== id))
+        alert('Erreur lors de la suppression. Vérifiez que Supabase est configuré.')
       }
     }
   }
@@ -238,6 +254,11 @@ export default function AdminPage() {
             <Plus className="w-4 h-4" />
             <span>Ajouter une plateforme</span>
           </Button>
+          <a href={`/${locale}/admin/blog`}>
+            <Button variant="outline">
+              Gérer le blog
+            </Button>
+          </a>
           <Button onClick={handleLogout} variant="outline" className="flex items-center space-x-2">
             <LogOut className="w-4 h-4" />
             <span>Déconnexion</span>

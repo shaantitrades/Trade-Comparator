@@ -114,6 +114,128 @@ export async function deletePlatform(id: string) {
   }
 }
 
+// Types pour les articles de blog
+export interface BlogPostDB {
+  id: string
+  title: string
+  slug: string
+  excerpt?: string
+  content: string
+  author?: string
+  cover_image?: string
+  locale?: string
+  published: boolean
+  published_at?: string
+  created_at?: string
+  updated_at?: string
+  tags?: string[]
+  category?: string
+}
+
+// Fonctions pour les articles de blog
+export async function getBlogPosts(locale?: string, publishedOnly: boolean = true) {
+  let query = supabase
+    .from('blog_posts')
+    .select('*')
+    .order('published_at', { ascending: false })
+    .order('created_at', { ascending: false })
+  
+  if (publishedOnly) {
+    query = query.eq('published', true)
+  }
+  
+  if (locale) {
+    query = query.eq('locale', locale)
+  }
+  
+  const { data, error } = await query
+  
+  if (error) {
+    console.error('Error fetching blog posts:', error)
+    return []
+  }
+  
+  return data || []
+}
+
+export async function getBlogPost(slug: string) {
+  const { data, error } = await supabase
+    .from('blog_posts')
+    .select('*')
+    .eq('slug', slug)
+    .eq('published', true)
+    .single()
+  
+  if (error) {
+    console.error('Error fetching blog post:', error)
+    return null
+  }
+  
+  return data
+}
+
+export async function createBlogPost(post: Omit<BlogPostDB, 'id' | 'created_at' | 'updated_at'>) {
+  const { data, error } = await supabase
+    .from('blog_posts')
+    .insert({
+      ...post,
+      published_at: post.published ? new Date().toISOString() : null,
+    })
+    .select()
+    .single()
+  
+  if (error) {
+    console.error('Error creating blog post:', error)
+    throw error
+  }
+  
+  return data
+}
+
+export async function updateBlogPost(id: string, post: Partial<BlogPostDB>) {
+  const updateData: any = { ...post }
+  
+  // Si on passe de non publié à publié, mettre à jour published_at
+  if (post.published === true) {
+    // Vérifier si l'article était déjà publié
+    const { data: existing } = await supabase
+      .from('blog_posts')
+      .select('published_at')
+      .eq('id', id)
+      .single()
+    
+    if (!existing?.published_at) {
+      updateData.published_at = new Date().toISOString()
+    }
+  }
+  
+  const { data, error } = await supabase
+    .from('blog_posts')
+    .update({ ...updateData, updated_at: new Date().toISOString() })
+    .eq('id', id)
+    .select()
+    .single()
+  
+  if (error) {
+    console.error('Error updating blog post:', error)
+    throw error
+  }
+  
+  return data
+}
+
+export async function deleteBlogPost(id: string) {
+  const { error } = await supabase
+    .from('blog_posts')
+    .delete()
+    .eq('id', id)
+  
+  if (error) {
+    console.error('Error deleting blog post:', error)
+    throw error
+  }
+}
+
 
 
 
