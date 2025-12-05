@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useLocale } from 'next-intl'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Plus, Edit, Trash2, Save, X, LogOut } from 'lucide-react'
 import { Platform, PlatformRating } from '@/types'
@@ -33,8 +34,16 @@ export default function AdminPage() {
     spread: '',
     leverage: '',
     platform: [],
+    assets: [],
     description: '',
     website: '',
+    reviews: 0,
+    country: '',
+    countryName: '',
+    yearsInOperation: undefined,
+    maxAllocations: '',
+    promo: '',
+    promoType: '',
   })
 
   // Vérifier l'authentification au chargement de la page
@@ -89,9 +98,17 @@ export default function AdminPage() {
         spread: p.spread,
         leverage: p.leverage,
         platform: p.platform || [],
+        assets: p.assets || [],
         description: p.description,
         website: p.website,
         logo: p.logo,
+        reviews: p.reviews || 0,
+        country: p.country,
+        countryName: p.country_name,
+        yearsInOperation: p.years_in_operation,
+        maxAllocations: p.max_allocations,
+        promo: p.promo,
+        promoType: p.promo_type,
       }))
       
       setPlatforms(formattedPlatforms)
@@ -126,6 +143,19 @@ export default function AdminPage() {
       regulations: [],
       minDeposit: 0,
       affiliateUrl: '',
+      spread: '',
+      leverage: '',
+      platform: [],
+      assets: [],
+      description: '',
+      website: '',
+      reviews: 0,
+      country: '',
+      countryName: '',
+      yearsInOperation: undefined,
+      maxAllocations: '',
+      promo: '',
+      promoType: '',
     })
   }
 
@@ -160,9 +190,17 @@ export default function AdminPage() {
         spread: formData.spread,
         leverage: formData.leverage,
         platform: formData.platform || [],
+        assets: formData.assets || [],
         description: formData.description,
         website: formData.website,
         logo: formData.logo,
+        reviews: formData.reviews || 0,
+        country: formData.country,
+        country_name: formData.countryName,
+        years_in_operation: formData.yearsInOperation,
+        max_allocations: formData.maxAllocations,
+        promo: formData.promo,
+        promo_type: formData.promoType,
       }
 
       if (isAdding) {
@@ -203,20 +241,20 @@ export default function AdminPage() {
     setFormData({})
   }
 
-  const addArrayItem = (field: 'advantages' | 'disadvantages' | 'regulations' | 'platform') => {
+  const addArrayItem = (field: 'advantages' | 'disadvantages' | 'regulations' | 'platform' | 'assets') => {
     setFormData({
       ...formData,
       [field]: [...(formData[field] || []), ''],
     })
   }
 
-  const updateArrayItem = (field: 'advantages' | 'disadvantages' | 'regulations' | 'platform', index: number, value: string) => {
+  const updateArrayItem = (field: 'advantages' | 'disadvantages' | 'regulations' | 'platform' | 'assets', index: number, value: string) => {
     const newArray = [...(formData[field] || [])]
     newArray[index] = value
     setFormData({ ...formData, [field]: newArray })
   }
 
-  const removeArrayItem = (field: 'advantages' | 'disadvantages' | 'regulations' | 'platform', index: number) => {
+  const removeArrayItem = (field: 'advantages' | 'disadvantages' | 'regulations' | 'platform' | 'assets', index: number) => {
     const newArray = [...(formData[field] || [])]
     newArray.splice(index, 1)
     setFormData({ ...formData, [field]: newArray })
@@ -254,11 +292,11 @@ export default function AdminPage() {
             <Plus className="w-4 h-4" />
             <span>Ajouter une plateforme</span>
           </Button>
-          <a href={`/${locale}/admin/blog`}>
+          <Link href={`/${locale}/admin/blog`}>
             <Button variant="outline">
               Gérer le blog
             </Button>
-          </a>
+          </Link>
           <Button onClick={handleLogout} variant="outline" className="flex items-center space-x-2">
             <LogOut className="w-4 h-4" />
             <span>Déconnexion</span>
@@ -562,6 +600,130 @@ export default function AdminPage() {
                   </Button>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Assets (Actifs) */}
+          <div className="mt-6">
+            <div className="flex justify-between items-center mb-2">
+              <label className="block text-sm font-medium">Actifs (Assets)</label>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => addArrayItem('assets')}
+              >
+                <Plus className="w-4 h-4 mr-1" />
+                Ajouter
+              </Button>
+            </div>
+            <div className="space-y-2">
+              {(formData.assets || []).map((item, index) => (
+                <div key={index} className="flex items-center space-x-2">
+                  <input
+                    type="text"
+                    value={item}
+                    onChange={(e) => updateArrayItem('assets', index, e.target.value)}
+                    className="flex-1 rounded-md border border-input bg-background px-3 py-2"
+                    placeholder="ex: Crypto, FX, Indices, Metals"
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => removeArrayItem('assets', index)}
+                  >
+                    <X className="w-4 h-4" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Nouveaux champs pour le format tableau */}
+          <div className="mt-6 grid md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium mb-2">Nombre de reviews</label>
+              <input
+                type="number"
+                min="0"
+                value={formData.reviews || 0}
+                onChange={(e) => setFormData({ ...formData, reviews: Number(e.target.value) })}
+                className="w-full rounded-md border border-input bg-background px-3 py-2"
+                placeholder="ex: 832"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2">Code pays (ex: FR, US, AE)</label>
+              <input
+                type="text"
+                value={formData.country || ''}
+                onChange={(e) => setFormData({ ...formData, country: e.target.value.toUpperCase() })}
+                className="w-full rounded-md border border-input bg-background px-3 py-2"
+                placeholder="ex: FR, US, AE"
+                maxLength={2}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2">Nom du pays</label>
+              <input
+                type="text"
+                value={formData.countryName || ''}
+                onChange={(e) => setFormData({ ...formData, countryName: e.target.value })}
+                className="w-full rounded-md border border-input bg-background px-3 py-2"
+                placeholder="ex: France, United States"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2">Années d&apos;opération</label>
+              <input
+                type="number"
+                min="0"
+                value={formData.yearsInOperation || ''}
+                onChange={(e) => setFormData({ ...formData, yearsInOperation: e.target.value ? Number(e.target.value) : undefined })}
+                className="w-full rounded-md border border-input bg-background px-3 py-2"
+                placeholder="ex: 3"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2">Allocation maximale</label>
+              <input
+                type="text"
+                value={formData.maxAllocations || ''}
+                onChange={(e) => setFormData({ ...formData, maxAllocations: e.target.value })}
+                className="w-full rounded-md border border-input bg-background px-3 py-2"
+                placeholder="ex: $300K, 500K"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2">Promo (texte)</label>
+              <input
+                type="text"
+                value={formData.promo || ''}
+                onChange={(e) => setFormData({ ...formData, promo: e.target.value })}
+                className="w-full rounded-md border border-input bg-background px-3 py-2"
+                placeholder="ex: 20% OFF, 120% Reward Fee"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2">Type de promo</label>
+              <select
+                value={formData.promoType || ''}
+                onChange={(e) => setFormData({ ...formData, promoType: e.target.value })}
+                className="w-full rounded-md border border-input bg-background px-3 py-2"
+              >
+                <option value="">Aucun</option>
+                <option value="OFF">OFF</option>
+                <option value="Reward Fee">Reward Fee</option>
+                <option value="MATCH">MATCH</option>
+                <option value="Bonus">Bonus</option>
+              </select>
             </div>
           </div>
 

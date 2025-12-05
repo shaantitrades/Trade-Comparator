@@ -28,9 +28,16 @@ export function LanguageSwitcher() {
   const pathname = usePathname()
 
   const handleLanguageChange = (newLocale: string) => {
-    const newPathname = pathname.replace(`/${locale}`, `/${newLocale}`)
-    router.push(newPathname)
-    router.refresh()
+    try {
+      // Construire le nouveau chemin en remplaçant la locale
+      const newPathname = pathname.replace(`/${locale}`, `/${newLocale}`)
+      // S'assurer que le chemin commence par /
+      const finalPath = newPathname.startsWith('/') ? newPathname : `/${newLocale}${pathname}`
+      router.push(finalPath)
+      router.refresh()
+    } catch (error) {
+      console.error('Error changing language:', error)
+    }
   }
 
   const currentLanguage = languages.find((lang) => lang.code === locale)

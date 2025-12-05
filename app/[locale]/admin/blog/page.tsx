@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useLocale } from 'next-intl'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Plus, Edit, Trash2, Save, X, LogOut, Eye, EyeOff } from 'lucide-react'
 import { AdminLogin } from '@/components/admin/AdminLogin'
@@ -66,6 +67,7 @@ export default function BlogAdminPage() {
     if (authenticated) {
       loadPosts()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authenticated, locale])
 
   const handleAdd = () => {
@@ -126,9 +128,30 @@ export default function BlogAdminPage() {
       setIsAdding(false)
       setIsEditing(null)
       setFormData({})
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving post:', error)
-      alert('Erreur lors de la sauvegarde. Vérifiez que Supabase est configuré et que la table blog_posts existe.')
+      let errorMessage = 'Erreur lors de la sauvegarde.\n\n'
+      
+      if (error?.message?.includes('relation') || error?.message?.includes('does not exist')) {
+        errorMessage += '❌ La table blog_posts n\'existe pas dans Supabase.\n\n'
+        errorMessage += '📝 Pour résoudre :\n'
+        errorMessage += '1. Allez dans Supabase → SQL Editor\n'
+        errorMessage += '2. Ouvrez le fichier blog_setup_simple.sql dans votre projet\n'
+        errorMessage += '3. Copiez tout le contenu SQL\n'
+        errorMessage += '4. Collez et exécutez dans Supabase\n\n'
+        errorMessage += 'Voir BLOG_SETUP.md pour plus de détails.'
+      } else if (error?.message?.includes('JWT') || error?.message?.includes('permission')) {
+        errorMessage += '❌ Problème de permissions Supabase.\n\n'
+        errorMessage += 'Vérifiez que RLS est désactivé ou que les politiques sont correctes.'
+      } else {
+        errorMessage += `Détails: ${error?.message || 'Erreur inconnue'}\n\n`
+        errorMessage += 'Vérifiez:\n'
+        errorMessage += '- Variables d\'environnement Supabase configurées\n'
+        errorMessage += '- Table blog_posts créée\n'
+        errorMessage += '- Console du navigateur pour plus de détails'
+      }
+      
+      alert(errorMessage)
     }
   }
 
@@ -201,11 +224,11 @@ export default function BlogAdminPage() {
             <Plus className="w-4 h-4" />
             <span>Nouvel article</span>
           </Button>
-          <a href={`/${locale}/admin`}>
+          <Link href={`/${locale}/admin`}>
             <Button variant="outline">
               Retour aux plateformes
             </Button>
-          </a>
+          </Link>
         </div>
       </div>
 

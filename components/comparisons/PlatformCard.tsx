@@ -80,11 +80,13 @@ export function PlatformCard({
       </div>
 
       {/* Regulations */}
-      <div className="flex flex-wrap gap-2">
-        {regulations.map((reg) => (
-          <RegulationBadge key={reg} regulation={reg} />
-        ))}
-      </div>
+      {regulations && regulations.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {regulations.map((reg) => (
+            <RegulationBadge key={reg} regulation={reg} />
+          ))}
+        </div>
+      )}
 
       {/* Min Deposit */}
       <div className="text-sm">
@@ -93,30 +95,34 @@ export function PlatformCard({
       </div>
 
       {/* Advantages */}
-      <div>
-        <h4 className="text-sm font-semibold mb-2 text-green-400">Avantages</h4>
-        <ul className="space-y-1">
-          {advantages.map((advantage, i) => (
-            <li key={i} className="flex items-start space-x-2 text-sm">
-              <Check className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
-              <span>{advantage}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {advantages && advantages.length > 0 && (
+        <div>
+          <h4 className="text-sm font-semibold mb-2 text-green-400">Avantages</h4>
+          <ul className="space-y-1">
+            {advantages.map((advantage, i) => (
+              <li key={i} className="flex items-start space-x-2 text-sm">
+                <Check className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
+                <span>{advantage}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {/* Disadvantages */}
-      <div>
-        <h4 className="text-sm font-semibold mb-2 text-red-400">Inconvénients</h4>
-        <ul className="space-y-1">
-          {disadvantages.map((disadvantage, i) => (
-            <li key={i} className="flex items-start space-x-2 text-sm">
-              <X className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
-              <span>{disadvantage}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {disadvantages && disadvantages.length > 0 && (
+        <div>
+          <h4 className="text-sm font-semibold mb-2 text-red-400">Inconvénients</h4>
+          <ul className="space-y-1">
+            {disadvantages.map((disadvantage, i) => (
+              <li key={i} className="flex items-start space-x-2 text-sm">
+                <X className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
+                <span>{disadvantage}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {/* CTA */}
       <Button

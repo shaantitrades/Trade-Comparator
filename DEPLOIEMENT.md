@@ -280,3 +280,5 @@ Avant de considérer le déploiement terminé :
 
 Si vous avez des questions ou des problèmes, consultez les logs dans Vercel ou les messages d'erreur dans la console du navigateur.
 
+
+

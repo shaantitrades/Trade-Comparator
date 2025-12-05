@@ -7,7 +7,6 @@ import { locales, Locale } from '@/i18n'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { generateMetadata as generateSEOMetadata } from '@/lib/seo'
-import { HreflangTags } from '@/components/seo/HreflangTags'
 
 export const dynamic = 'force-dynamic'
 
@@ -47,7 +46,6 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <HreflangTags locale={locale as Locale} />
       <div className="flex min-h-screen flex-col">
         <Header />
         <main className="flex-1">{children}</main>

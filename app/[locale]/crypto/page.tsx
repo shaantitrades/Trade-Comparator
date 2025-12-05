@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl'
 import { useState, useEffect } from 'react'
 import { getPlatforms } from '@/lib/supabase'
-import { PlatformCard } from '@/components/comparisons/PlatformCard'
+import { PlatformTable } from '@/components/comparisons/PlatformTable'
 import { Platform } from '@/types'
 
 export default function CryptoPage() {
@@ -15,6 +15,7 @@ export default function CryptoPage() {
     const loadPlatforms = async () => {
       try {
         const data = await getPlatforms('crypto')
+        // Les données sont déjà normalisées par getPlatforms()
         const formattedPlatforms: Platform[] = data.map((p: any) => ({
           id: p.id,
           name: p.name,
@@ -28,17 +29,25 @@ export default function CryptoPage() {
             plateforme: 0,
             support: 0,
           },
-          advantages: p.advantages || [],
-          disadvantages: p.disadvantages || [],
-          regulations: p.regulations || [],
+          advantages: Array.isArray(p.advantages) ? p.advantages : [],
+          disadvantages: Array.isArray(p.disadvantages) ? p.disadvantages : [],
+          regulations: Array.isArray(p.regulations) ? p.regulations : [],
           minDeposit: p.min_deposit || 0,
           affiliateUrl: p.affiliate_url || '',
           spread: p.spread,
           leverage: p.leverage,
-          platform: p.platform || [],
+          platform: Array.isArray(p.platform) ? p.platform : [],
+          assets: Array.isArray(p.assets) ? p.assets : [],
           description: p.description,
           website: p.website,
           logo: p.logo,
+          reviews: p.reviews || 0,
+          country: p.country,
+          countryName: p.country_name,
+          yearsInOperation: p.years_in_operation,
+          maxAllocations: p.max_allocations,
+          promo: p.promo,
+          promoType: p.promo_type,
         }))
         setPlatforms(formattedPlatforms)
       } catch (error) {
@@ -68,11 +77,7 @@ export default function CryptoPage() {
           <p className="text-muted-foreground">{t('pages.empty')}</p>
         </div>
       ) : (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {platforms.map((platform) => (
-            <PlatformCard key={platform.id} {...platform} />
-          ))}
-        </div>
+        <PlatformTable platforms={platforms} />
       )}
     </div>
   )

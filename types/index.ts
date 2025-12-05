@@ -18,6 +18,15 @@ export interface Platform {
   website?: string
   founded?: number
   headquarters?: string
+  // Nouveaux champs pour le format tableau
+  reviews?: number
+  country?: string
+  countryName?: string
+  yearsInOperation?: number
+  assets?: string[]
+  maxAllocations?: string
+  promo?: string
+  promoType?: string
 }
 
 export interface PlatformRating {

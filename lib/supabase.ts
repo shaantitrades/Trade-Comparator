@@ -34,8 +34,81 @@ export interface PlatformDB {
   description?: string
   website?: string
   logo?: string
+  // Nouveaux champs
+  reviews?: number
+  country?: string
+  country_name?: string
+  years_in_operation?: number
+  assets?: string[]
+  max_allocations?: string
+  promo?: string
+  promo_type?: string
   created_at?: string
   updated_at?: string
+}
+
+// Fonction utilitaire pour normaliser les tableaux PostgreSQL
+// Les tableaux TEXT[] peuvent être renvoyés comme des strings ou des tableaux
+function normalizeArray(value: any): string[] {
+  if (!value) return []
+  if (Array.isArray(value)) {
+    // Filtrer les valeurs vides, null et undefined
+    return value
+      .filter((item) => item != null)
+      .map((item) => (typeof item === 'string' ? item.trim() : String(item)))
+      .filter((item) => item !== '')
+  }
+  if (typeof value === 'string') {
+    const trimmed = value.trim()
+    if (!trimmed) return []
+    // Si c'est une string, essayer de la parser comme JSON
+    try {
+      const parsed = JSON.parse(trimmed)
+      if (Array.isArray(parsed)) {
+        return parsed
+          .filter((item) => item != null)
+          .map((item) => (typeof item === 'string' ? item.trim() : String(item)))
+          .filter((item) => item !== '')
+      }
+      // Si ce n'est pas un tableau mais une valeur valide, retourner un tableau
+      return [String(parsed).trim()].filter((item) => item !== '')
+    } catch {
+      // Si ce n'est pas du JSON valide, retourner un tableau avec la string
+      return trimmed !== '' ? [trimmed] : []
+    }
+  }
+  return []
+}
+
+// Fonction utilitaire pour normaliser les ratings JSONB
+function normalizeRatings(value: any): {
+  sécurité: number
+  frais: number
+  actifs: number
+  plateforme: number
+  support: number
+} {
+  const defaultRatings = {
+    sécurité: 0,
+    frais: 0,
+    actifs: 0,
+    plateforme: 0,
+    support: 0,
+  }
+
+  if (!value) return defaultRatings
+  if (typeof value === 'string') {
+    try {
+      const parsed = JSON.parse(value)
+      return { ...defaultRatings, ...parsed }
+    } catch {
+      return defaultRatings
+    }
+  }
+  if (typeof value === 'object') {
+    return { ...defaultRatings, ...value }
+  }
+  return defaultRatings
 }
 
 // Fonctions utilitaires pour les plateformes
@@ -53,7 +126,18 @@ export async function getPlatforms(category?: string) {
     return []
   }
   
-  return data || []
+  if (!data) return []
+  
+  // Normaliser les données récupérées
+  return data.map((p: any) => ({
+    ...p,
+    advantages: normalizeArray(p.advantages),
+    disadvantages: normalizeArray(p.disadvantages),
+    regulations: normalizeArray(p.regulations),
+    platform: normalizeArray(p.platform),
+    assets: normalizeArray(p.assets),
+    ratings: normalizeRatings(p.ratings),
+  }))
 }
 
 export async function getPlatform(slug: string) {
@@ -68,7 +152,18 @@ export async function getPlatform(slug: string) {
     return null
   }
   
-  return data
+  if (!data) return null
+  
+  // Normaliser les données récupérées
+  return {
+    ...data,
+    advantages: normalizeArray(data.advantages),
+    disadvantages: normalizeArray(data.disadvantages),
+    regulations: normalizeArray(data.regulations),
+    platform: normalizeArray(data.platform),
+    assets: normalizeArray(data.assets),
+    ratings: normalizeRatings(data.ratings),
+  }
 }
 
 export async function createPlatform(platform: Omit<PlatformDB, 'id' | 'created_at' | 'updated_at'>) {
