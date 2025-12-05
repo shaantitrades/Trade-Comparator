@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useLocale } from 'next-intl'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Plus, Edit, Trash2, Save, X, LogOut } from 'lucide-react'
+import { Plus, Edit, Trash2, Save, X, LogOut, Copy, Check } from 'lucide-react'
 import { Platform, PlatformRating } from '@/types'
 import { AdminLogin } from '@/components/admin/AdminLogin'
 
@@ -14,6 +14,7 @@ export default function AdminPage() {
   const [platforms, setPlatforms] = useState<Platform[]>([])
   const [isEditing, setIsEditing] = useState<string | null>(null)
   const [isAdding, setIsAdding] = useState(false)
+  const [copied, setCopied] = useState(false)
   const [formData, setFormData] = useState<Partial<Platform>>({
     name: '',
     slug: '',
@@ -44,6 +45,7 @@ export default function AdminPage() {
     maxAllocations: '',
     promo: '',
     promoType: '',
+    bonusCode: '',
   })
 
   // Vérifier l'authentification au chargement de la page
@@ -109,6 +111,7 @@ export default function AdminPage() {
         maxAllocations: p.max_allocations,
         promo: p.promo,
         promoType: p.promo_type,
+        bonusCode: p.bonus_code,
       }))
       
       setPlatforms(formattedPlatforms)
@@ -126,6 +129,7 @@ export default function AdminPage() {
 
   const handleAdd = () => {
     setIsAdding(true)
+    setIsEditing(null) // S'assurer qu'on n'est pas en mode édition
     setFormData({
       name: '',
       slug: '',
@@ -156,18 +160,44 @@ export default function AdminPage() {
       maxAllocations: '',
       promo: '',
       promoType: '',
+      bonusCode: '',
     })
   }
 
   const handleEdit = (platform: Platform) => {
     setIsEditing(platform.id)
+    setIsAdding(false) // S'assurer qu'on n'est pas en mode ajout
     setFormData(platform)
-    setIsAdding(false)
   }
 
   const handleSave = async () => {
     try {
       const { createPlatform, updatePlatform } = await import('@/lib/supabase')
+      
+      // Validation des champs requis
+      if (!formData.name || !formData.slug || !formData.affiliateUrl) {
+        alert('Veuillez remplir tous les champs obligatoires (Nom, Slug, Lien d\'affiliation).')
+        return
+      }
+
+      // Vérifier si le slug existe déjà (sauf si on est en mode édition du même slug)
+      if (isAdding) {
+        const existingPlatform = platforms.find(p => p.slug === formData.slug)
+        if (existingPlatform) {
+          alert(`Le slug "${formData.slug}" existe déjà. Veuillez choisir un autre slug unique.`)
+          return
+        }
+      } else if (isEditing) {
+        // En mode édition, vérifier si le slug a changé et s'il existe déjà
+        const currentPlatform = platforms.find(p => p.id === isEditing)
+        if (currentPlatform && currentPlatform.slug !== formData.slug) {
+          const existingPlatform = platforms.find(p => p.slug === formData.slug && p.id !== isEditing)
+          if (existingPlatform) {
+            alert(`Le slug "${formData.slug}" existe déjà pour une autre plateforme. Veuillez choisir un autre slug unique.`)
+            return
+          }
+        }
+      }
       
       // Convertir le format Platform vers le format DB
       const dbData = {
@@ -201,12 +231,16 @@ export default function AdminPage() {
         max_allocations: formData.maxAllocations,
         promo: formData.promo,
         promo_type: formData.promoType,
+        bonus_code: formData.bonusCode,
       }
 
       if (isAdding) {
         await createPlatform(dbData)
       } else if (isEditing) {
         await updatePlatform(isEditing, dbData)
+      } else {
+        alert('Erreur : mode d\'édition non défini.')
+        return
       }
       
       // Recharger les plateformes depuis la base de données
@@ -215,9 +249,28 @@ export default function AdminPage() {
       setIsAdding(false)
       setIsEditing(null)
       setFormData({})
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving platform:', error)
-      alert('Erreur lors de la sauvegarde. Vérifiez que Supabase est configuré et que les données sont correctes.')
+      
+      // Gestion d'erreur améliorée avec messages spécifiques
+      let errorMessage = 'Erreur lors de la sauvegarde.'
+      
+      if (error?.code === '23505') {
+        // Erreur de contrainte unique (duplicate key)
+        if (error?.message?.includes('slug')) {
+          errorMessage = `Le slug "${formData.slug}" existe déjà dans la base de données. Veuillez choisir un autre slug unique.`
+        } else {
+          errorMessage = 'Une contrainte unique est violée. Vérifiez que les données sont uniques (slug, etc.).'
+        }
+      } else if (error?.code === '23502') {
+        errorMessage = 'Des champs obligatoires sont manquants. Vérifiez tous les champs requis.'
+      } else if (error?.message) {
+        errorMessage = `Erreur: ${error.message}`
+      } else {
+        errorMessage = 'Erreur lors de la sauvegarde. Vérifiez que Supabase est configuré et que les données sont correctes.'
+      }
+      
+      alert(errorMessage)
     }
   }
 
@@ -239,6 +292,22 @@ export default function AdminPage() {
     setIsAdding(false)
     setIsEditing(null)
     setFormData({})
+  }
+
+  const handleCopyBonusCode = async () => {
+    if (!formData.bonusCode) {
+      alert('Aucun code de bonus à copier.')
+      return
+    }
+
+    try {
+      await navigator.clipboard.writeText(formData.bonusCode)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch (error) {
+      console.error('Erreur lors de la copie:', error)
+      alert('Impossible de copier le code. Veuillez le copier manuellement.')
+    }
   }
 
   const addArrayItem = (field: 'advantages' | 'disadvantages' | 'regulations' | 'platform' | 'assets') => {
@@ -709,6 +778,39 @@ export default function AdminPage() {
                 className="w-full rounded-md border border-input bg-background px-3 py-2"
                 placeholder="ex: 20% OFF, 120% Reward Fee"
               />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2">Code de bonus</label>
+              <div className="flex items-center space-x-2">
+                <input
+                  type="text"
+                  value={formData.bonusCode || ''}
+                  onChange={(e) => setFormData({ ...formData, bonusCode: e.target.value })}
+                  className="flex-1 rounded-md border border-input bg-background px-3 py-2"
+                  placeholder="ex: BONUS2024, WELCOME50"
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={handleCopyBonusCode}
+                  disabled={!formData.bonusCode}
+                  className="flex items-center space-x-1 whitespace-nowrap"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="w-4 h-4" />
+                      <span>Copié!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4" />
+                      <span>Copier</span>
+                    </>
+                  )}
+                </Button>
+              </div>
             </div>
 
             <div>

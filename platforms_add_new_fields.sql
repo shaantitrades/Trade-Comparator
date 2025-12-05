@@ -35,9 +35,14 @@ ADD COLUMN IF NOT EXISTS promo TEXT;
 ALTER TABLE platforms 
 ADD COLUMN IF NOT EXISTS promo_type TEXT;
 
+-- Ajouter la colonne bonus_code (code de bonus à copier)
+ALTER TABLE platforms 
+ADD COLUMN IF NOT EXISTS bonus_code TEXT;
+
 -- Créer un index sur country pour les filtres
 CREATE INDEX IF NOT EXISTS idx_platforms_country ON platforms(country);
 
 -- Créer un index sur years_in_operation pour le tri
 CREATE INDEX IF NOT EXISTS idx_platforms_years ON platforms(years_in_operation);
+
 

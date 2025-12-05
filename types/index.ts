@@ -27,6 +27,7 @@ export interface Platform {
   maxAllocations?: string
   promo?: string
   promoType?: string
+  bonusCode?: string
 }
 
 export interface PlatformRating {

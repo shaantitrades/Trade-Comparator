@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Star, ExternalLink, Heart } from 'lucide-react'
+import { Star, ExternalLink, Heart, Copy, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import type { Platform } from '@/types'
@@ -45,6 +45,19 @@ export function PlatformTable({ platforms, className }: PlatformTableProps) {
   const [sortBy, setSortBy] = useState<string | null>(null)
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc')
   const [filter, setFilter] = useState<'all' | 'popular' | 'new'>('all')
+  const [copiedId, setCopiedId] = useState<string | null>(null)
+
+  const handleCopyBonusCode = async (bonusCode: string, platformId: string) => {
+    if (!bonusCode) return
+
+    try {
+      await navigator.clipboard.writeText(bonusCode)
+      setCopiedId(platformId)
+      setTimeout(() => setCopiedId(null), 2000)
+    } catch (error) {
+      console.error('Erreur lors de la copie:', error)
+    }
+  }
 
   const handleSort = (column: string) => {
     if (sortBy === column) {
@@ -347,14 +360,36 @@ export function PlatformTable({ platforms, className }: PlatformTableProps) {
                     {/* PROMO */}
                     <td className="p-4">
                       {platform.promo ? (
-                        <div className="flex items-center space-x-1">
-                          <span className="text-sm font-semibold text-green-400">
-                            {platform.promo}
-                          </span>
-                          {platform.promoType && (
-                            <span className="text-xs px-2 py-0.5 bg-primary/20 rounded">
-                              {platform.promoType}
+                        <div className="flex flex-col space-y-2">
+                          <div className="flex items-center space-x-1">
+                            <span className="text-sm font-semibold text-green-400">
+                              {platform.promo}
                             </span>
+                            {platform.promoType && (
+                              <span className="text-xs px-2 py-0.5 bg-primary/20 rounded">
+                                {platform.promoType}
+                              </span>
+                            )}
+                          </div>
+                          {platform.bonusCode && (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => handleCopyBonusCode(platform.bonusCode!, platform.id)}
+                              className="flex items-center space-x-1 text-xs h-7"
+                            >
+                              {copiedId === platform.id ? (
+                                <>
+                                  <Check className="w-3 h-3" />
+                                  <span>Copié!</span>
+                                </>
+                              ) : (
+                                <>
+                                  <Copy className="w-3 h-3" />
+                                  <span>Copier code</span>
+                                </>
+                              )}
+                            </Button>
                           )}
                         </div>
                       ) : (
@@ -390,4 +425,5 @@ export function PlatformTable({ platforms, className }: PlatformTableProps) {
     </div>
   )
 }
+
 

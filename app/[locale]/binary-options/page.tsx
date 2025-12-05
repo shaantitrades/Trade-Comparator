@@ -48,6 +48,7 @@ export default function BinaryOptionsPage() {
           maxAllocations: p.max_allocations,
           promo: p.promo,
           promoType: p.promo_type,
+          bonusCode: p.bonus_code,
         }))
         setPlatforms(formattedPlatforms)
       } catch (error) {

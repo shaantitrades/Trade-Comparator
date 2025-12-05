@@ -43,6 +43,7 @@ export interface PlatformDB {
   max_allocations?: string
   promo?: string
   promo_type?: string
+  bonus_code?: string
   created_at?: string
   updated_at?: string
 }
