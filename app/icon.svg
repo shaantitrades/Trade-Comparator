@@ -1,19 +1,32 @@
 <svg width="32" height="32" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <!-- Gradient doré premium pour la balance -->
-    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stopColor="#FFD700" stopOpacity="1" />
-      <stop offset="30%" stopColor="#FFC107" stopOpacity="1" />
-      <stop offset="60%" stopColor="#FFA500" stopOpacity="1" />
-      <stop offset="100%" stopColor="#D4AF37" stopOpacity="1" />
+    <!-- Gradient doré ultra lumineux pour la balance -->
+    <linearGradient id="goldGradientFavicon" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stopColor="#FFF700" stopOpacity="1" />
+      <stop offset="25%" stopColor="#FFD700" stopOpacity="1" />
+      <stop offset="50%" stopColor="#FFC107" stopOpacity="1" />
+      <stop offset="75%" stopColor="#FFA500" stopOpacity="1" />
+      <stop offset="100%" stopColor="#FFD700" stopOpacity="1" />
     </linearGradient>
     
-    <!-- Ombre améliorée -->
-    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
-      <feOffset dx="1" dy="2" result="offsetblur"/>
+    <!-- Effet de brillance/glow pour plus de visibilité -->
+    <filter id="glowFavicon" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur"/>
+      <feOffset in="blur" dx="0" dy="0" result="offsetBlur"/>
+      <feFlood floodColor="#FFD700" floodOpacity="0.6"/>
+      <feComposite in2="offsetBlur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Ombre améliorée mais plus lumineuse -->
+    <filter id="shadowFavicon" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.5"/>
+      <feOffset dx="0.5" dy="1" result="offsetblur"/>
       <feComponentTransfer>
-        <feFuncA type="linear" slope="0.4"/>
+        <feFuncA type="linear" slope="0.3"/>
       </feComponentTransfer>
       <feMerge>
         <feMergeNode/>
@@ -22,20 +35,30 @@
     </filter>
   </defs>
 
-  <!-- Fond noir pur pour le favicon -->
-  <rect width="120" height="120" fill="#000000" rx="8"/>
+  <!-- Fond noir pur -->
+  <rect width="120" height="120" fill="#000000" rx="12"/>
 
-  <!-- Ombre sous la base améliorée -->
+  <!-- Halo lumineux autour de la balance pour plus de visibilité -->
+  <ellipse
+    cx="60"
+    cy="55"
+    rx="50"
+    ry="45"
+    fill="#FFD700"
+    opacity="0.05"
+  />
+
+  <!-- Ombre sous la base -->
   <ellipse
     cx="60"
     cy="115"
     rx="25"
     ry="5"
-    fill="#333333"
-    opacity="0.6"
+    fill="#1a1a1a"
+    opacity="0.8"
   />
 
-  <!-- Colonne centrale -->
+  <!-- Colonne centrale - plus épaisse et lumineuse -->
   <path
     d="M 55 100
        L 55 20
@@ -59,11 +82,13 @@
        L 62 10
        L 60 10
        Z"
-    fill="url(#goldGradient)"
-    filter="url(#shadow)"
+    fill="url(#goldGradientFavicon)"
+    stroke="#FFF700"
+    strokeWidth="1"
+    filter="url(#glowFavicon)"
   />
 
-  <!-- Barre horizontale (beam) -->
+  <!-- Barre horizontale (beam) - plus épaisse et lumineuse -->
   <path
     d="M 20 25
        Q 20 20, 25 20
@@ -77,63 +102,73 @@
        L 25 30
        Q 20 30, 20 25
        Z"
-    fill="url(#goldGradient)"
-    filter="url(#shadow)"
+    fill="url(#goldGradientFavicon)"
+    stroke="#FFF700"
+    strokeWidth="1"
+    filter="url(#glowFavicon)"
   />
 
   <!-- Chaînes et plateaux - Côté gauche -->
   <g>
-    <!-- Chaînes gauche -->
-    <line x1="25" y1="25" x2="25" y2="40" stroke="url(#goldGradient)" strokeWidth="2" filter="url(#shadow)" />
-    <line x1="30" y1="25" x2="30" y2="40" stroke="url(#goldGradient)" strokeWidth="2" filter="url(#shadow)" />
-    <line x1="35" y1="25" x2="35" y2="40" stroke="url(#goldGradient)" strokeWidth="2" filter="url(#shadow)" />
+    <!-- Chaînes gauche - plus épaisses et lumineuses -->
+    <line x1="25" y1="25" x2="25" y2="40" stroke="url(#goldGradientFavicon)" strokeWidth="3" filter="url(#glowFavicon)" />
+    <line x1="30" y1="25" x2="30" y2="40" stroke="url(#goldGradientFavicon)" strokeWidth="3" filter="url(#glowFavicon)" />
+    <line x1="35" y1="25" x2="35" y2="40" stroke="url(#goldGradientFavicon)" strokeWidth="3" filter="url(#glowFavicon)" />
     
-    <!-- Plateau gauche -->
+    <!-- Plateau gauche - plus visible et lumineux -->
     <ellipse
       cx="30"
       cy="45"
-      rx="12"
-      ry="3"
-      fill="url(#goldGradient)"
-      filter="url(#shadow)"
+      rx="14"
+      ry="4.5"
+      fill="url(#goldGradientFavicon)"
+      stroke="#FFF700"
+      strokeWidth="1"
+      filter="url(#glowFavicon)"
     />
     <path
-      d="M 18 45
-         Q 18 50, 30 55
-         Q 42 50, 42 45
-         Q 42 40, 30 45
-         Q 18 40, 18 45
+      d="M 16 45
+         Q 16 50, 30 57
+         Q 44 50, 44 45
+         Q 44 40, 30 45
+         Q 16 40, 16 45
          Z"
-      fill="url(#goldGradient)"
-      filter="url(#shadow)"
+      fill="url(#goldGradientFavicon)"
+      stroke="#FFF700"
+      strokeWidth="1"
+      filter="url(#glowFavicon)"
     />
   </g>
 
   <!-- Chaînes et plateaux - Côté droit -->
   <g>
-    <!-- Chaînes droite -->
-    <line x1="85" y1="25" x2="85" y2="40" stroke="url(#goldGradient)" strokeWidth="2" filter="url(#shadow)" />
-    <line x1="90" y1="25" x2="90" y2="40" stroke="url(#goldGradient)" strokeWidth="2" filter="url(#shadow)" />
-    <line x1="95" y1="25" x2="95" y2="40" stroke="url(#goldGradient)" strokeWidth="2" filter="url(#shadow)" />
+    <!-- Chaînes droite - plus épaisses et lumineuses -->
+    <line x1="85" y1="25" x2="85" y2="40" stroke="url(#goldGradientFavicon)" strokeWidth="3" filter="url(#glowFavicon)" />
+    <line x1="90" y1="25" x2="90" y2="40" stroke="url(#goldGradientFavicon)" strokeWidth="3" filter="url(#glowFavicon)" />
+    <line x1="95" y1="25" x2="95" y2="40" stroke="url(#goldGradientFavicon)" strokeWidth="3" filter="url(#glowFavicon)" />
     
-    <!-- Plateau droit -->
+    <!-- Plateau droit - plus visible et lumineux -->
     <ellipse
       cx="90"
       cy="45"
-      rx="12"
-      ry="3"
-      fill="url(#goldGradient)"
-      filter="url(#shadow)"
+      rx="14"
+      ry="4.5"
+      fill="url(#goldGradientFavicon)"
+      stroke="#FFF700"
+      strokeWidth="1"
+      filter="url(#glowFavicon)"
     />
     <path
-      d="M 78 45
-         Q 78 50, 90 55
-         Q 102 50, 102 45
-         Q 102 40, 90 45
-         Q 78 40, 78 45
+      d="M 76 45
+         Q 76 50, 90 57
+         Q 104 50, 104 45
+         Q 104 40, 90 45
+         Q 76 40, 76 45
          Z"
-      fill="url(#goldGradient)"
-      filter="url(#shadow)"
+      fill="url(#goldGradientFavicon)"
+      stroke="#FFF700"
+      strokeWidth="1"
+      filter="url(#glowFavicon)"
     />
   </g>
 </svg>
