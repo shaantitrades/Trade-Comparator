@@ -3,18 +3,25 @@ FROM node:20-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
+# Force development so npm installs devDeps (tailwindcss, typescript, postcss…)
+# regardless of any NODE_ENV=production injected at build time by Coolify
+ENV NODE_ENV=development
+
 COPY package.json package-lock.json* ./
-# Install ALL deps (including devDeps) needed for build (tailwindcss, typescript, etc.)
 RUN npm ci
 
 # ─── Stage 2: builder ─────────────────────────────────────────────────
 FROM node:20-alpine AS builder
 WORKDIR /app
 
+# Keep development during build so Next.js can use tailwindcss/postcss
+ENV NODE_ENV=development
+ENV NEXT_TELEMETRY_DISABLED=1
+
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Variables d'environnement publiques nécessaires au build
+# Variables publiques nécessaires au moment du build
 ARG NEXT_PUBLIC_SUPABASE_URL
 ARG NEXT_PUBLIC_SUPABASE_ANON_KEY
 ARG NEXT_PUBLIC_ADSENSE_PUBLISHER_ID
@@ -24,7 +31,6 @@ ENV NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL
 ENV NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY
 ENV NEXT_PUBLIC_ADSENSE_PUBLISHER_ID=$NEXT_PUBLIC_ADSENSE_PUBLISHER_ID
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
-ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN npm run build
 
