@@ -59,6 +59,14 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(rows[0], { status: 201 })
   } catch (error: any) {
     console.error('POST /api/platforms error:', error)
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    let msg = error.message || 'Unknown error'
+    if (error.code === 'EAI_AGAIN' || msg.includes('EAI_AGAIN') || msg.includes('getaddrinfo')) {
+      msg = `Impossible de résoudre le hostname de la base de données (${msg}). Vérifiez DATABASE_URL dans Coolify — le hostname doit correspondre au nom interne du service PostgreSQL.`
+    } else if (msg.includes('ECONNREFUSED')) {
+      msg = `Connexion refusée par PostgreSQL (${msg}). Vérifiez que le service PostgreSQL est démarré dans Coolify.`
+    } else if (msg.includes('connection timeout') || msg.includes('ETIMEDOUT')) {
+      msg = `Timeout de connexion PostgreSQL (${msg}). Vérifiez que DATABASE_URL est correct et que le service est accessible.`
+    }
+    return NextResponse.json({ error: msg }, { status: 500 })
   }
 }
