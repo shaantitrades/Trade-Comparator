@@ -264,6 +264,10 @@ export default function AdminPage() {
         }
       } else if (error?.code === '23502') {
         errorMessage = 'Des champs obligatoires sont manquants. Vérifiez tous les champs requis.'
+      } else if (error?.name === 'TimeoutError' || error?.name === 'AbortError') {
+        errorMessage = 'Erreur: La connexion à la base de données a expiré. Vérifiez que DATABASE_URL est correctement configuré dans Coolify.'
+      } else if (error?.message?.toLowerCase().includes('failed to fetch') || error?.message?.toLowerCase().includes('networkerror')) {
+        errorMessage = 'Erreur réseau: Impossible de contacter le serveur. Vérifiez que DATABASE_URL est configuré dans les variables d\'environnement Coolify.'
       } else if (error?.message) {
         errorMessage = `Erreur: ${error.message}`
       } else {

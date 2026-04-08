@@ -66,9 +66,14 @@ export interface BlogPostDB {
 
 export async function getPlatforms(category?: string) {
   try {
-    const url = new URL(`${getBaseUrl()}/api/platforms`)
-    if (category) url.searchParams.set('category', category)
-    const res = await fetch(url.toString(), { cache: 'no-store' })
+    const base = getBaseUrl()
+    const path = category
+      ? `/api/platforms?category=${encodeURIComponent(category)}`
+      : '/api/platforms'
+    const res = await fetch(`${base}${path}`, {
+      cache: 'no-store',
+      signal: AbortSignal.timeout(10000),
+    })
     if (!res.ok) return []
     return res.json()
   } catch (error) {
@@ -96,6 +101,7 @@ export async function createPlatform(platform: Omit<PlatformDB, 'id' | 'created_
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
     body: JSON.stringify(platform),
+    signal: AbortSignal.timeout(15000),
   })
   if (!res.ok) {
     const err = await res.json()
@@ -110,6 +116,7 @@ export async function updatePlatform(id: string, platform: Partial<PlatformDB>) 
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
     body: JSON.stringify(platform),
+    signal: AbortSignal.timeout(15000),
   })
   if (!res.ok) {
     const err = await res.json()
@@ -133,12 +140,16 @@ export async function deletePlatform(id: string) {
 
 export async function getBlogPosts(locale?: string, publishedOnly: boolean = true) {
   try {
-    const url = new URL(`${getBaseUrl()}/api/blog`)
-    if (locale) url.searchParams.set('locale', locale)
-    if (!publishedOnly) url.searchParams.set('all', 'true')
-    const res = await fetch(url.toString(), {
+    const base = getBaseUrl()
+    const params = new URLSearchParams()
+    if (locale) params.set('locale', locale)
+    if (!publishedOnly) params.set('all', 'true')
+    const query = params.toString()
+    const path = query ? `/api/blog?${query}` : '/api/blog'
+    const res = await fetch(`${base}${path}`, {
       cache: 'no-store',
       credentials: 'include',
+      signal: AbortSignal.timeout(10000),
     })
     if (!res.ok) return []
     return res.json()
