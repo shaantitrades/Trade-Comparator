@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { AnimatedCounter } from '@/components/shared/AnimatedCounter'
 import { GradientBackground } from '@/components/shared/GradientBackground'
-import { TrendingUp, Shield, Globe, Users, Bitcoin, Building2, Target, Radio, GraduationCap, ArrowRight } from 'lucide-react'
+import { TrendingUp, Shield, Globe, Users, Bitcoin, Building2, Radio, GraduationCap, ArrowRight } from 'lucide-react'
 
 export default function HomePage() {
   const t = useTranslations('common')
@@ -73,48 +73,41 @@ export default function HomePage() {
                 label: 'trading', 
                 subtitleKey: 'categories.compareBest',
                 icon: TrendingUp,
-                gradient: 'from-blue-500/20 to-cyan-500/20',
-                iconColor: 'text-blue-400'
+                gradient: 'from-blue-500/50 to-cyan-500/40',
+                iconColor: 'text-blue-300'
               },
               { 
                 key: 'crypto', 
                 label: 'crypto', 
                 subtitleKey: 'categories.compareBest',
                 icon: Bitcoin,
-                gradient: 'from-yellow-500/20 to-orange-500/20',
-                iconColor: 'text-yellow-400'
+                gradient: 'from-yellow-500/50 to-orange-500/40',
+                iconColor: 'text-yellow-300'
               },
               { 
                 key: 'propFirms', 
                 label: 'prop-firms', 
                 subtitleKey: 'categories.compareBest',
                 icon: Building2,
-                gradient: 'from-purple-500/20 to-pink-500/20',
-                iconColor: 'text-purple-400'
+                gradient: 'from-purple-500/50 to-pink-500/40',
+                iconColor: 'text-purple-300'
               },
-              { 
-                key: 'binaryOptions', 
-                label: 'binary-options', 
-                subtitleKey: 'categories.compareBest',
-                icon: Target,
-                gradient: 'from-green-500/20 to-emerald-500/20',
-                iconColor: 'text-green-400'
-              },
+
               { 
                 key: 'signals', 
                 label: 'signals', 
                 subtitleKey: 'categories.signalsSubtitle',
                 icon: Radio,
-                gradient: 'from-green-500/30 to-emerald-500/30',
-                iconColor: 'text-green-400'
+                gradient: 'from-green-500/50 to-emerald-500/40',
+                iconColor: 'text-green-300'
               },
               { 
                 key: 'education', 
                 label: 'education', 
                 subtitleKey: 'categories.educationSubtitle',
                 icon: GraduationCap,
-                gradient: 'from-indigo-500/20 to-violet-500/20',
-                iconColor: 'text-indigo-400'
+                gradient: 'from-indigo-500/50 to-violet-500/40',
+                iconColor: 'text-indigo-300'
               },
             ].map((category, index) => {
               const href = category.key === 'trading' ? '/trading' :
@@ -136,12 +129,12 @@ export default function HomePage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className={`glass rounded-lg p-4 sm:p-5 md:p-6 hover:scale-105 transition-all cursor-pointer relative overflow-hidden bg-gradient-to-br ${category.gradient} border border-white/10`}
+                    className={`glass rounded-lg p-4 sm:p-5 md:p-6 hover:scale-105 transition-all cursor-pointer relative overflow-hidden bg-gradient-to-br ${category.gradient} border border-white/25 shadow-lg`}
                   >
                     <div className="relative z-10">
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center space-x-3">
-                        <div className={`p-1.5 sm:p-2 rounded-lg bg-white/10 backdrop-blur-sm ${category.iconColor}`}>
+                        <div className={`p-1.5 sm:p-2 rounded-lg bg-white/20 backdrop-blur-sm ${category.iconColor}`}>
                           <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                         </div>
                         <h3 className="text-base sm:text-lg md:text-xl font-semibold">

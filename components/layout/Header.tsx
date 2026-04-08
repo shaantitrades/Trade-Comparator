@@ -28,7 +28,6 @@ export function Header() {
     { href: `/${locale}/trading`, label: t('nav.trading') },
     { href: `/${locale}/crypto`, label: t('nav.crypto') },
     { href: `/${locale}/prop-firms`, label: t('nav.propFirms') },
-    { href: `/${locale}/binary-options`, label: t('nav.binaryOptions') },
     { href: `/${locale}/blog`, label: t('nav.blog') },
   ]
 
