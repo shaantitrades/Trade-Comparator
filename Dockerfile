@@ -4,7 +4,8 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 COPY package.json package-lock.json* ./
-RUN npm ci --omit=dev
+# Install ALL deps (including devDeps) needed for build (tailwindcss, typescript, etc.)
+RUN npm ci
 
 # ─── Stage 2: builder ─────────────────────────────────────────────────
 FROM node:20-alpine AS builder
