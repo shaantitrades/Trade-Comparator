@@ -4,8 +4,8 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 COPY package.json package-lock.json* ./
-# npm install (not ci) installs devDeps regardless of NODE_ENV
-RUN npm install
+# --include=dev overrides NODE_ENV=production injected by Coolify
+RUN npm install --include=dev
 
 # ─── Stage 2: builder ─────────────────────────────────────────────────
 FROM node:20-alpine AS builder
