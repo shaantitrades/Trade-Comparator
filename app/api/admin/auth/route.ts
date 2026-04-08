@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const ADMIN_EMAIL = 'admin@trades.com'
-const ADMIN_PASSWORD = 'admin0080'
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@trades.com'
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin0080'
 
 export async function POST(request: NextRequest) {
   try {
