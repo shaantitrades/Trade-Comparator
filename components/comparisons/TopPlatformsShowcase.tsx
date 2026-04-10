@@ -181,9 +181,7 @@ export function TopPlatformsShowcase() {
   const activePlatforms = platformsByCategory[activeCategory] ?? []
   const activeCat = CATEGORIES.find(c => c.key === activeCategory)!
 
-  // Ne pas rendre si aucune catégorie n'a de données
   const hasAnyData = CATEGORIES.some(c => (platformsByCategory[c.key]?.length ?? 0) > 0)
-  if (!loading && !hasAnyData) return null
 
   return (
     <section className="w-full px-4 py-6 sm:py-8">
@@ -231,8 +229,7 @@ export function TopPlatformsShowcase() {
         </div>
 
         {/* Cards */}
-        <div className="relative">
-          {loading ? (
+        <div className="relative">          {loading ? (
             <div className="flex gap-3 overflow-hidden">
               {[...Array(5)].map((_, i) => (
                 <div key={i} className="min-w-[180px] max-w-[220px] h-64 bg-card border border-border rounded-xl animate-pulse flex-shrink-0" />
@@ -262,8 +259,29 @@ export function TopPlatformsShowcase() {
               </AnimatePresence>
             </div>
           ) : (
-            <div className="text-muted-foreground text-sm py-8 text-center">
-              {t('showcase.noFeatured')}
+            <div className="flex gap-3 overflow-hidden">
+              {[...Array(5)].map((_, i) => (
+                <div key={i} className="min-w-[180px] max-w-[220px] flex-shrink-0 bg-card border border-dashed border-border rounded-xl overflow-hidden opacity-40">
+                  <div className="h-20 bg-white/5 flex items-center justify-center">
+                    <div className="w-16 h-8 bg-white/10 rounded" />
+                  </div>
+                  <div className="p-3 flex flex-col gap-2">
+                    <div className="h-4 bg-white/10 rounded w-3/4 mx-auto" />
+                    <div className="h-3 bg-white/10 rounded w-1/2" />
+                    <div className="h-3 bg-white/10 rounded w-2/3" />
+                    <div className="h-3 bg-white/10 rounded w-1/2" />
+                    <div className="h-3 bg-white/10 rounded w-3/5" />
+                  </div>
+                  <div className="p-3 pt-0">
+                    <div className="h-8 bg-blue-600/30 rounded-lg" />
+                  </div>
+                </div>
+              ))}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <p className="text-xs text-muted-foreground bg-background/80 backdrop-blur px-3 py-1.5 rounded-full border border-border">
+                  {t('showcase.noFeatured')}
+                </p>
+              </div>
             </div>
           )}
         </div>
