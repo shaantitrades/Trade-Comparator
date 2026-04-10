@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useLocale } from 'next-intl'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Plus, Edit, Trash2, Save, X, LogOut, Copy, Check } from 'lucide-react'
+import { Plus, Edit, Trash2, Save, X, LogOut, Copy, Check, Star } from 'lucide-react'
 import { Platform, PlatformRating } from '@/types'
 import { AdminLogin } from '@/components/admin/AdminLogin'
 
@@ -15,6 +15,7 @@ export default function AdminPage() {
   const [isEditing, setIsEditing] = useState<string | null>(null)
   const [isAdding, setIsAdding] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [showFeaturedOnly, setShowFeaturedOnly] = useState(false)
   const [formData, setFormData] = useState<Partial<Platform>>({
     name: '',
     slug: '',
@@ -385,6 +386,16 @@ export default function AdminPage() {
             <Plus className="w-4 h-4" />
             <span>Ajouter</span>
           </Button>
+          {platforms.filter(p => p.isFeatured).length > 0 && (
+            <Button
+              variant={showFeaturedOnly ? 'default' : 'outline'}
+              className={`flex items-center space-x-2 text-sm ${showFeaturedOnly ? 'bg-yellow-500 hover:bg-yellow-600 text-black border-yellow-500' : 'border-yellow-500/50 text-yellow-400 hover:bg-yellow-500/10'}`}
+              onClick={() => setShowFeaturedOnly(v => !v)}
+            >
+              <Star className={`w-4 h-4 ${showFeaturedOnly ? 'fill-black' : 'fill-yellow-400'}`} />
+              <span>Vedettes ({platforms.filter(p => p.isFeatured).length})</span>
+            </Button>
+          )}
           <Link href={`/${locale}/admin/blog`}>
             <Button variant="outline" className="text-sm">
               Blog
@@ -946,13 +957,35 @@ export default function AdminPage() {
 
       {/* Liste des plateformes */}
       <div className="space-y-4">
-        {platforms.length === 0 ? (
-          <div className="glass rounded-lg p-12 text-center">
-            <p className="text-muted-foreground">Aucune plateforme pour le moment.</p>
-            <p className="text-sm text-muted-foreground mt-2">Cliquez sur &quot;Ajouter une plateforme&quot; pour commencer.</p>
-          </div>
-        ) : (
-          platforms.map((platform) => (
+        {(() => {
+          const displayed = showFeaturedOnly
+            ? platforms.filter(p => p.isFeatured)
+            : platforms
+
+          if (platforms.length === 0) {
+            return (
+              <div className="glass rounded-lg p-12 text-center">
+                <p className="text-muted-foreground">Aucune plateforme pour le moment.</p>
+                <p className="text-sm text-muted-foreground mt-2">Cliquez sur &quot;Ajouter une plateforme&quot; pour commencer.</p>
+              </div>
+            )
+          }
+
+          return (
+            <>
+              {showFeaturedOnly && (
+                <div className="flex items-center gap-2 px-1 pb-2 border-b border-yellow-500/20">
+                  <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                  <span className="text-sm text-yellow-400 font-medium">Affichage : plateformes vedettes uniquement</span>
+                  <button
+                    onClick={() => setShowFeaturedOnly(false)}
+                    className="ml-auto text-xs text-muted-foreground hover:text-foreground underline"
+                  >
+                    Voir toutes
+                  </button>
+                </div>
+              )}
+              {displayed.map((platform) => (
             <div key={platform.id} className="glass rounded-lg p-6">
               <div className="flex justify-between items-start">
                 <div className="flex-1">
@@ -1005,8 +1038,10 @@ export default function AdminPage() {
                 </div>
               </div>
             </div>
-          ))
-        )}
+          ))}
+            </>
+          )
+        })()}
       </div>
     </div>
   )
