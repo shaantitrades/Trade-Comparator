@@ -46,6 +46,11 @@ export default function AdminPage() {
     promo: '',
     promoType: '',
     bonusCode: '',
+    isFeatured: false,
+    popularity: 0,
+    riskDisclaimer: '',
+    availableCountry: 'FR',
+    featuredOrder: 0,
   })
 
   // Vérifier l'authentification au chargement de la page
@@ -112,6 +117,11 @@ export default function AdminPage() {
         promo: p.promo,
         promoType: p.promo_type,
         bonusCode: p.bonus_code,
+        isFeatured: p.is_featured ?? false,
+        popularity: p.popularity ?? 0,
+        riskDisclaimer: p.risk_disclaimer ?? '',
+        availableCountry: p.available_country ?? 'FR',
+        featuredOrder: p.featured_order ?? 0,
       }))
       
       setPlatforms(formattedPlatforms)
@@ -161,6 +171,11 @@ export default function AdminPage() {
       promo: '',
       promoType: '',
       bonusCode: '',
+      isFeatured: false,
+      popularity: 0,
+      riskDisclaimer: '',
+      availableCountry: 'FR',
+      featuredOrder: 0,
     })
   }
 
@@ -232,6 +247,11 @@ export default function AdminPage() {
         promo: formData.promo,
         promo_type: formData.promoType,
         bonus_code: formData.bonusCode,
+        is_featured: formData.isFeatured ?? false,
+        popularity: formData.popularity ?? 0,
+        risk_disclaimer: formData.riskDisclaimer || null,
+        available_country: formData.availableCountry || 'FR',
+        featured_order: formData.featuredOrder ?? 0,
       }
 
       if (isAdding) {
@@ -358,19 +378,19 @@ export default function AdminPage() {
 
   return (
     <div className="container mx-auto px-4 py-20">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold">Administration - Plateformes</h1>
-        <div className="flex items-center space-x-4">
-          <Button onClick={handleAdd} className="flex items-center space-x-2">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">Administration - Plateformes</h1>
+        <div className="flex flex-wrap items-center gap-2 sm:gap-4">
+          <Button onClick={handleAdd} className="flex items-center space-x-2 text-sm">
             <Plus className="w-4 h-4" />
-            <span>Ajouter une plateforme</span>
+            <span>Ajouter</span>
           </Button>
           <Link href={`/${locale}/admin/blog`}>
-            <Button variant="outline">
-              Gérer le blog
+            <Button variant="outline" className="text-sm">
+              Blog
             </Button>
           </Link>
-          <Button onClick={handleLogout} variant="outline" className="flex items-center space-x-2">
+          <Button onClick={handleLogout} variant="outline" className="flex items-center space-x-2 text-sm">
             <LogOut className="w-4 h-4" />
             <span>Déconnexion</span>
           </Button>
@@ -844,6 +864,73 @@ export default function AdminPage() {
             />
           </div>
 
+          {/* Plateforme vedette */}
+          <div className="mt-6 border border-yellow-500/30 rounded-lg p-4 bg-yellow-500/5">
+            <h3 className="text-sm font-semibold text-yellow-400 mb-4">⭐ Plateforme vedette (Page d&apos;accueil)</h3>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="flex items-center space-x-3">
+                <input
+                  type="checkbox"
+                  id="isFeatured"
+                  checked={formData.isFeatured || false}
+                  onChange={(e) => setFormData({ ...formData, isFeatured: e.target.checked })}
+                  className="w-4 h-4 rounded border-input"
+                />
+                <label htmlFor="isFeatured" className="text-sm font-medium cursor-pointer">
+                  Afficher en vedette sur la page d&apos;accueil
+                </label>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">Ordre d&apos;affichage</label>
+                <input
+                  type="number"
+                  min="0"
+                  value={formData.featuredOrder ?? 0}
+                  onChange={(e) => setFormData({ ...formData, featuredOrder: Number(e.target.value) })}
+                  className="w-full rounded-md border border-input bg-background px-3 py-2"
+                  placeholder="0 = premier"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">Popularité (nb utilisateurs)</label>
+                <input
+                  type="number"
+                  min="0"
+                  value={formData.popularity ?? 0}
+                  onChange={(e) => setFormData({ ...formData, popularity: Number(e.target.value) })}
+                  className="w-full rounded-md border border-input bg-background px-3 py-2"
+                  placeholder="ex: 547000"
+                />
+                <p className="text-xs text-muted-foreground mt-1">Affiché comme &quot;547k&quot; ou &quot;1.2M&quot;</p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">Code pays disponible</label>
+                <input
+                  type="text"
+                  value={formData.availableCountry || 'FR'}
+                  onChange={(e) => setFormData({ ...formData, availableCountry: e.target.value.toUpperCase() })}
+                  className="w-full rounded-md border border-input bg-background px-3 py-2"
+                  placeholder="ex: FR, DE, ES"
+                  maxLength={2}
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium mb-1">Avertissement risque (disclaimer)</label>
+                <input
+                  type="text"
+                  value={formData.riskDisclaimer || ''}
+                  onChange={(e) => setFormData({ ...formData, riskDisclaimer: e.target.value })}
+                  className="w-full rounded-md border border-input bg-background px-3 py-2"
+                  placeholder="ex: 74% des comptes CFD de détail perdent de l'argent"
+                />
+              </div>
+            </div>
+          </div>
+
           {/* Actions */}
           <div className="flex justify-end space-x-4 mt-6">
             <Button variant="outline" onClick={handleCancel}>
@@ -877,9 +964,15 @@ export default function AdminPage() {
                     <span className="text-sm text-muted-foreground">
                       Note: {platform.rating}/5
                     </span>
+                    {platform.isFeatured && (
+                      <span className="px-2 py-0.5 bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 rounded-md text-xs font-medium">
+                        ⭐ Vedette
+                      </span>
+                    )}
                   </div>
                   <p className="text-sm text-muted-foreground mt-2">
                     Slug: {platform.slug} | Dépôt min: {platform.minDeposit}€
+                    {platform.popularity ? ` | Popularité: ${platform.popularity.toLocaleString()}` : ''}
                   </p>
                   {platform.affiliateUrl && (
                     <a

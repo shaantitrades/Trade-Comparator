@@ -42,6 +42,33 @@
       "signalsSubtitle": "Porównaj najlepsze platformy sygnałów w czasie rzeczywistym",
       "educationSubtitle": "Porównaj najlepsze platformy edukacyjne dla traderów"
     },
+    "showcase": {
+      "title": "Najlepsze polecane platformy",
+      "score": "Ocena:",
+      "popularity": "Popularność:",
+      "availableIn": {
+        "FR": "Dostępne we Francji",
+        "DE": "Dostępne w Niemczech",
+        "ES": "Dostępne w Hiszpanii",
+        "IT": "Dostępne we Włoszech",
+        "NL": "Dostępne w Holandii",
+        "PL": "Dostępne w Polsce",
+        "PT": "Dostępne w Portugalii",
+        "GB": "Dostępne w UK",
+        "US": "Dostępne w USA"
+      },
+      "availableDefault": "Dostępne",
+      "updatedAt": "Zaktualizowano:",
+      "visitBroker": "ODŁÓŻ BROKERA",
+      "noFeatured": "Brak wyróżnionych platform w tej chwili.",
+      "tabShort": {
+        "trading": "Forex",
+        "crypto": "Crypto",
+        "propFirms": "Prop",
+        "education": "Eduk.",
+        "signals": "Sygnały"
+      }
+    },
     "pages": {
       "loading": "Ładowanie platform...",
       "empty": "Nie znaleziono platform dla tej kategorii.",

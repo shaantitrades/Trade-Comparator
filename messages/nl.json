@@ -42,6 +42,33 @@
       "signalsSubtitle": "Vergelijk de beste real-time signaalplatforms",
       "educationSubtitle": "Vergelijk de beste educatieve platforms voor traders"
     },
+    "showcase": {
+      "title": "Beste aanbevolen platforms",
+      "score": "Score:",
+      "popularity": "Populariteit:",
+      "availableIn": {
+        "FR": "Beschikbaar in Frankrijk",
+        "DE": "Beschikbaar in Duitsland",
+        "ES": "Beschikbaar in Spanje",
+        "IT": "Beschikbaar in Italië",
+        "NL": "Beschikbaar in Nederland",
+        "PL": "Beschikbaar in Polen",
+        "PT": "Beschikbaar in Portugal",
+        "GB": "Beschikbaar in VK",
+        "US": "Beschikbaar in VS"
+      },
+      "availableDefault": "Beschikbaar",
+      "updatedAt": "Bijgewerkt:",
+      "visitBroker": "BROKER BEZOEKEN",
+      "noFeatured": "Geen uitgelichte platforms op dit moment.",
+      "tabShort": {
+        "trading": "Forex",
+        "crypto": "Crypto",
+        "propFirms": "Prop",
+        "education": "Educ.",
+        "signals": "Signalen"
+      }
+    },
     "pages": {
       "loading": "Platforms worden geladen...",
       "empty": "Geen platforms gevonden voor deze categorie.",

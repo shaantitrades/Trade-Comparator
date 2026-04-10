@@ -11,6 +11,13 @@
   
   body {
     overflow-x: hidden;
+    min-height: 100dvh;
+  }
+
+  /* Ensure images scale properly on mobile */
+  img {
+    max-width: 100%;
+    height: auto;
   }
 }
 

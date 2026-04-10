@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
@@ -21,6 +21,13 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -30,7 +37,7 @@ export default function RootLayout({
   const adsensePublisherId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || 'ca-pub-5343389597650456'
 
   return (
-    <html suppressHydrationWarning>
+    <html suppressHydrationWarning className="dark">
       <body className={`${inter.variable} font-sans antialiased`}>
         <Script
           id="adsbygoogle-init"

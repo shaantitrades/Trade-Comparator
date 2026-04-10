@@ -42,6 +42,33 @@
       "signalsSubtitle": "Compare the best real-time signal platforms",
       "educationSubtitle": "Compare the best educational platforms for traders"
     },
+    "showcase": {
+      "title": "Top Recommended Platforms",
+      "score": "Score:",
+      "popularity": "Popularity:",
+      "availableIn": {
+        "FR": "Available in France",
+        "DE": "Available in Germany",
+        "ES": "Available in Spain",
+        "IT": "Available in Italy",
+        "NL": "Available in Netherlands",
+        "PL": "Available in Poland",
+        "PT": "Available in Portugal",
+        "GB": "Available in UK",
+        "US": "Available in US"
+      },
+      "availableDefault": "Available",
+      "updatedAt": "Updated:",
+      "visitBroker": "VISIT BROKER",
+      "noFeatured": "No featured platforms at the moment.",
+      "tabShort": {
+        "trading": "Forex",
+        "crypto": "Crypto",
+        "propFirms": "Prop",
+        "education": "Edu.",
+        "signals": "Signals"
+      }
+    },
     "pages": {
       "loading": "Loading platforms...",
       "empty": "No platform found for this category.",

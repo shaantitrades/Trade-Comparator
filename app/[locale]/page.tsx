@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { AnimatedCounter } from '@/components/shared/AnimatedCounter'
 import { GradientBackground } from '@/components/shared/GradientBackground'
 import { TrendingUp, Shield, Globe, Users, Bitcoin, Building2, Radio, GraduationCap, ArrowRight } from 'lucide-react'
+import { TopPlatformsShowcase } from '@/components/comparisons/TopPlatformsShowcase'
 
 export default function HomePage() {
   const t = useTranslations('common')
@@ -64,6 +65,8 @@ export default function HomePage() {
       </section>
 
       {/* Preview Sections */}
+      <TopPlatformsShowcase />
+
       <section id="categories-section" className="py-4 sm:py-6 md:py-8 px-4">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5">

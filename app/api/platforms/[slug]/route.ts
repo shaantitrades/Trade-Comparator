@@ -52,8 +52,9 @@ export async function PUT(
         platform=$13, description=$14, website=$15, logo=$16,
         reviews=$17, country=$18, country_name=$19, years_in_operation=$20,
         assets=$21, max_allocations=$22, promo=$23, promo_type=$24, bonus_code=$25,
+        is_featured=$26, popularity=$27, risk_disclaimer=$28, available_country=$29, featured_order=$30,
         updated_at=NOW()
-       WHERE ${col}=$26
+       WHERE ${col}=$31
        RETURNING *`,
       [
         p.name, p.slug, p.category, p.rating ?? 0,
@@ -65,6 +66,8 @@ export async function PUT(
         p.reviews ?? 0, p.country ?? null, p.country_name ?? null,
         p.years_in_operation ?? null, p.assets ?? [],
         p.max_allocations ?? null, p.promo ?? null, p.promo_type ?? null, p.bonus_code ?? null,
+        p.is_featured ?? false, p.popularity ?? 0, p.risk_disclaimer ?? null,
+        p.available_country ?? 'FR', p.featured_order ?? 0,
         slug,
       ]
     )

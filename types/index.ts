@@ -28,6 +28,12 @@ export interface Platform {
   promo?: string
   promoType?: string
   bonusCode?: string
+  // Champs pour les plateformes vedettes
+  isFeatured?: boolean
+  popularity?: number
+  riskDisclaimer?: string
+  availableCountry?: string
+  featuredOrder?: number
 }
 
 export interface PlatformRating {
