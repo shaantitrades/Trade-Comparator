@@ -35,11 +35,18 @@ interface PlatformShowcaseCardProps {
 function PlatformShowcaseCard({ platform, t, locale, catKey }: PlatformShowcaseCardProps) {
   const score = typeof platform.rating === 'number' ? platform.rating : 0
   const popularity = platform.popularity ?? 0
-  const countryCode = platform.availableCountry || platform.country || 'FR'
   const riskDisclaimer = platform.riskDisclaimer
   const updatedLabel = getUpdatedLabel()
 
-  const href = `/${locale}/${catKey === 'prop-firms' ? 'prop-firms' : catKey}`
+  const cat = CATEGORIES.find(c => c.key === platform.category) ?? CATEGORIES[0]
+  const CatIcon = cat.icon
+  const navKey = platform.category === 'prop-firms' ? 'propFirms'
+    : platform.category === 'signals' ? 'signals'
+    : platform.category === 'education' ? 'education'
+    : platform.category === 'crypto' ? 'crypto'
+    : 'trading'
+
+  const href = `/${locale}/${platform.category === 'prop-firms' ? 'prop-firms' : platform.category}`
 
   return (
     <motion.div
@@ -48,27 +55,12 @@ function PlatformShowcaseCard({ platform, t, locale, catKey }: PlatformShowcaseC
       exit={{ opacity: 0, y: 8 }}
       className="flex flex-col bg-card border border-border rounded-xl overflow-hidden min-w-[180px] max-w-[220px] w-full flex-shrink-0 shadow-md hover:shadow-lg hover:border-primary/40 transition-all duration-200"
     >
-      {/* Logo */}
-      <div className="flex items-center justify-center bg-white h-20 px-4">
-        {platform.logo ? (
-          <img
-            src={platform.logo}
-            alt={platform.name}
-            className="h-12 w-auto max-w-[120px] object-contain"
-            onError={(e) => {
-              (e.target as HTMLImageElement).style.display = 'none'
-              const parent = (e.target as HTMLImageElement).parentElement
-              if (parent) {
-                const fallback = document.createElement('span')
-                fallback.textContent = platform.name[0]
-                fallback.className = 'text-2xl font-bold text-gray-800'
-                parent.appendChild(fallback)
-              }
-            }}
-          />
-        ) : (
-          <span className="text-3xl font-bold text-gray-800">{platform.name[0]}</span>
-        )}
+      {/* Category header */}
+      <div className={`flex flex-col items-center justify-center h-20 px-3 gap-1.5 ${cat.bg} border-b border-border`}>
+        <CatIcon className={`w-7 h-7 ${cat.color}`} />
+        <span className={`text-[10px] font-semibold ${cat.color} text-center leading-tight`}>
+          {t(`nav.${navKey}`)}
+        </span>
       </div>
 
       {/* Info */}
