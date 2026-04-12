@@ -917,18 +917,6 @@ export default function AdminPage() {
                 <p className="text-xs text-muted-foreground mt-1">Affiché comme &quot;547k&quot; ou &quot;1.2M&quot;</p>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium mb-1">Code pays disponible</label>
-                <input
-                  type="text"
-                  value={formData.availableCountry || 'FR'}
-                  onChange={(e) => setFormData({ ...formData, availableCountry: e.target.value.toUpperCase() })}
-                  className="w-full rounded-md border border-input bg-background px-3 py-2"
-                  placeholder="ex: FR, DE, ES"
-                  maxLength={2}
-                />
-              </div>
-
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium mb-1">Avertissement risque (disclaimer)</label>
                 <input

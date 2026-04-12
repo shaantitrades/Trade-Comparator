@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useTranslations, useLocale } from 'next-intl'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Star, Users, CheckCircle, RefreshCw, ExternalLink, TrendingUp, Bitcoin, Building2, GraduationCap, Radio } from 'lucide-react'
+import { Star, Users, RefreshCw, ExternalLink, TrendingUp, Bitcoin, Building2, GraduationCap, Radio } from 'lucide-react'
 import { Platform } from '@/types'
 
 const CATEGORIES = [
@@ -88,12 +88,6 @@ function PlatformShowcaseCard({ platform, t, locale, catKey }: PlatformShowcaseC
             <span><span className="font-semibold text-foreground">{t('showcase.popularity')}</span> {formatPopularity(popularity)}</span>
           </div>
         )}
-
-        {/* Disponible */}
-        <div className="flex items-center gap-1.5 text-xs text-green-400">
-          <CheckCircle className="w-3.5 h-3.5 flex-shrink-0" />
-          <span>{t(`showcase.availableIn.${countryCode}`, { fallback: t('showcase.availableDefault') })}</span>
-        </div>
 
         {/* Mis à jour */}
         <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
