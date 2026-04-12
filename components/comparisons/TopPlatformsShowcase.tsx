@@ -40,14 +40,14 @@ function PlatformShowcaseCard({ platform, t, locale, catKey }: PlatformShowcaseC
 
   const cat = CATEGORIES.find(c => c.key === platform.category) ?? CATEGORIES[0]
   const CatIcon = cat.icon
-  const catKey = platform.category as string
-  const navKey = catKey === 'prop-firms' ? 'propFirms'
-    : catKey === 'signals' ? 'signals'
-    : catKey === 'education' ? 'education'
-    : catKey === 'crypto' ? 'crypto'
+  const platformCat = platform.category as string
+  const navKey = platformCat === 'prop-firms' ? 'propFirms'
+    : platformCat === 'signals' ? 'signals'
+    : platformCat === 'education' ? 'education'
+    : platformCat === 'crypto' ? 'crypto'
     : 'trading'
 
-  const href = `/${locale}/${catKey === 'prop-firms' ? 'prop-firms' : catKey}`
+  const href = `/${locale}/${platformCat === 'prop-firms' ? 'prop-firms' : platformCat}`
 
   return (
     <motion.div
