@@ -13,7 +13,7 @@ export interface Platform {
   leverage?: string
   platform?: string[]
   affiliateUrl: string
-  category: 'trading' | 'crypto' | 'prop-firms' | 'binary-options'
+  category: 'trading' | 'crypto' | 'prop-firms' | 'binary-options' | 'signals' | 'education'
   description?: string
   website?: string
   founded?: number
