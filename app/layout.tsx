@@ -37,7 +37,7 @@ export default function RootLayout({
   const adsensePublisherId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || 'ca-pub-5343389597650456'
 
   return (
-    <html suppressHydrationWarning className="dark">
+    <html suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased`}>
         <Script
           id="adsbygoogle-init"
