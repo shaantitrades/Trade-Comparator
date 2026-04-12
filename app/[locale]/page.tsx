@@ -42,23 +42,7 @@ export default function HomePage() {
               {t('hero.title')}
             </motion.h1>
             
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground mb-3 md:mb-4 px-4"
-            >
-              {t('hero.subtitle')}
-            </motion.p>
-            
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="text-sm sm:text-base md:text-lg text-muted-foreground mb-2 md:mb-3 px-4"
-            >
-              {t('hero.description')}
-            </motion.p>
+
           </motion.div>
 
         </div>

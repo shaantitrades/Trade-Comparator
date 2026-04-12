@@ -61,7 +61,9 @@
       "updatedAt": "Atualizado:",
       "visitBroker": "VISITAR BROKER",
       "noFeatured": "Nenhuma plataforma em destaque no momento.",
+      "tabAll": "Todos",
       "tabShort": {
+        "all": "Todos",
         "trading": "Forex",
         "crypto": "Crypto",
         "propFirms": "Prop",

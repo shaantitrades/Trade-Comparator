@@ -124,7 +124,7 @@ function PlatformShowcaseCard({ platform, t, locale, catKey }: PlatformShowcaseC
 export function TopPlatformsShowcase() {
   const t = useTranslations('common')
   const locale = useLocale()
-  const [activeCategory, setActiveCategory] = useState<string>('trading')
+  const [activeCategory, setActiveCategory] = useState<string>('all')
   const [platformsByCategory, setPlatformsByCategory] = useState<Record<string, Platform[]>>({})
   const [loading, setLoading] = useState(true)
 
@@ -167,10 +167,6 @@ export function TopPlatformsShowcase() {
         const map: Record<string, Platform[]> = {}
         results.forEach(([key, platforms]) => { map[key] = platforms })
         setPlatformsByCategory(map)
-
-        // Activer la première catégorie qui a des plateformes
-        const firstWithData = CATEGORIES.find(c => (map[c.key]?.length ?? 0) > 0)
-        if (firstWithData) setActiveCategory(firstWithData.key)
       } finally {
         setLoading(false)
       }
@@ -178,10 +174,17 @@ export function TopPlatformsShowcase() {
     fetchAll()
   }, [])
 
-  const activePlatforms = platformsByCategory[activeCategory] ?? []
-  const activeCat = CATEGORIES.find(c => c.key === activeCategory)!
+  // Toutes les plateformes vedettes confondues (dédupliquées), triées par featuredOrder
+  const allFeaturedPlatforms = Object.values(platformsByCategory)
+    .flat()
+    .filter((p, i, arr) => arr.findIndex(x => x.id === p.id) === i)
+    .sort((a, b) => (a.featuredOrder ?? 0) - (b.featuredOrder ?? 0))
 
-  const hasAnyData = CATEGORIES.some(c => (platformsByCategory[c.key]?.length ?? 0) > 0)
+  const displayedPlatforms = activeCategory === 'all'
+    ? allFeaturedPlatforms
+    : (platformsByCategory[activeCategory] ?? [])
+
+  const totalAll = allFeaturedPlatforms.length
 
   return (
     <section className="w-full px-4 py-6 sm:py-8">
@@ -201,6 +204,24 @@ export function TopPlatformsShowcase() {
 
         {/* Tabs catégories */}
         <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
+          {/* Onglet Tous */}
+          <button
+            onClick={() => setActiveCategory('all')}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 border ${
+              activeCategory === 'all'
+                ? 'bg-primary text-white border-transparent shadow-md'
+                : 'bg-primary/10 text-primary border-primary/30 hover:opacity-80'
+            }`}
+          >
+            <Star className="w-3.5 h-3.5" />
+            <span>{t('showcase.tabAll')}</span>
+            {totalAll > 0 && (
+              <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${activeCategory === 'all' ? 'bg-white/20' : 'bg-black/20'}`}>
+                {totalAll}
+              </span>
+            )}
+          </button>
+
           {CATEGORIES.map((cat) => {
             const Icon = cat.icon
             const isActive = activeCategory === cat.key
@@ -235,7 +256,7 @@ export function TopPlatformsShowcase() {
                 <div key={i} className="min-w-[180px] max-w-[220px] h-64 bg-card border border-border rounded-xl animate-pulse flex-shrink-0" />
               ))}
             </div>
-          ) : activePlatforms.length > 0 ? (
+          ) : displayedPlatforms.length > 0 ? (
             <div className="overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -246,7 +267,7 @@ export function TopPlatformsShowcase() {
                   transition={{ duration: 0.25 }}
                   className="flex gap-3 min-w-max sm:min-w-0 sm:flex-wrap"
                 >
-                  {activePlatforms.map((platform) => (
+                  {displayedPlatforms.map((platform) => (
                     <PlatformShowcaseCard
                       key={platform.id}
                       platform={platform}

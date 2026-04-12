@@ -61,7 +61,9 @@
       "updatedAt": "Bijgewerkt:",
       "visitBroker": "BROKER BEZOEKEN",
       "noFeatured": "Geen uitgelichte platforms op dit moment.",
+      "tabAll": "Alle",
       "tabShort": {
+        "all": "Alle",
         "trading": "Forex",
         "crypto": "Crypto",
         "propFirms": "Prop",
