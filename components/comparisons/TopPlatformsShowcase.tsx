@@ -53,7 +53,7 @@ function PlatformShowcaseCard({ platform, t, locale, catKey }: PlatformShowcaseC
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 8 }}
-      className="flex flex-col bg-card border border-border rounded-xl overflow-hidden min-w-[180px] max-w-[220px] w-full flex-shrink-0 shadow-md hover:shadow-lg hover:border-primary/40 transition-all duration-200"
+      className="flex flex-col bg-card border border-border rounded-xl overflow-hidden w-full shadow-md hover:shadow-lg hover:border-primary/40 transition-all duration-200"
     >
       {/* Category header */}
       <div className={`flex flex-col items-center justify-center h-20 px-3 gap-1.5 ${cat.bg} border-b border-border`}>
@@ -236,39 +236,37 @@ export function TopPlatformsShowcase() {
         </div>
 
         {/* Cards */}
-        <div className="relative">          {loading ? (
-            <div className="flex gap-3 overflow-hidden">
+        <div className="relative">{loading ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
               {[...Array(5)].map((_, i) => (
-                <div key={i} className="min-w-[180px] max-w-[220px] h-64 bg-card border border-border rounded-xl animate-pulse flex-shrink-0" />
+                <div key={i} className="h-64 bg-card border border-border rounded-xl animate-pulse" />
               ))}
             </div>
           ) : displayedPlatforms.length > 0 ? (
-            <div className="overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeCategory}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.25 }}
-                  className="flex gap-3 min-w-max sm:min-w-0 sm:flex-wrap"
-                >
-                  {displayedPlatforms.map((platform) => (
-                    <PlatformShowcaseCard
-                      key={platform.id}
-                      platform={platform}
-                      t={t}
-                      locale={locale}
-                      catKey={activeCategory}
-                    />
-                  ))}
-                </motion.div>
-              </AnimatePresence>
-            </div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeCategory}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.25 }}
+                className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3"
+              >
+                {displayedPlatforms.map((platform) => (
+                  <PlatformShowcaseCard
+                    key={platform.id}
+                    platform={platform}
+                    t={t}
+                    locale={locale}
+                    catKey={activeCategory}
+                  />
+                ))}
+              </motion.div>
+            </AnimatePresence>
           ) : (
-            <div className="flex gap-3 overflow-hidden">
+            <div className="relative grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
               {[...Array(5)].map((_, i) => (
-                <div key={i} className="min-w-[180px] max-w-[220px] flex-shrink-0 bg-card border border-dashed border-border rounded-xl overflow-hidden opacity-40">
+                <div key={i} className="bg-card border border-dashed border-border rounded-xl overflow-hidden opacity-40">
                   <div className="h-20 bg-white/5 flex items-center justify-center">
                     <div className="w-16 h-8 bg-white/10 rounded" />
                   </div>
